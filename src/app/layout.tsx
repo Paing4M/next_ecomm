@@ -4,6 +4,7 @@ import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import {ClerkProvider} from "@clerk/nextjs";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,10 +33,17 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black`}
       >
-      <div className='max-w-[1300px] mx-auto px-2 px-2 md:px-3'>
+      <div className='max-w-[1300px] mx-auto px-2 md:px-3'>
         <Header/>
-        {children}
+        <div className='min-h-screen'>
+          {children}
+        </div>
       </div>
+
+      <div className='bg-black text-white'>
+        <Footer/>
+      </div>
+
       </body>
       </html>
     </ClerkProvider>
