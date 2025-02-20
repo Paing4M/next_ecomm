@@ -6,6 +6,7 @@ import {MenuIcon, SearchIcon, ShoppingCartIcon, UserIcon} from "lucide-react";
 import {useClerk, UserButton, useUser} from "@clerk/nextjs";
 import {useState} from "react";
 import {CloseIcon} from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
+import {usePathname, useRouter} from "next/navigation";
 
 
 interface UserInfoUIProps {
@@ -40,6 +41,7 @@ const UserInfoUI = ({handleSignInModal, className}: UserInfoUIProps) => {
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
 
+  const pathname = usePathname()
   const {user} = useUser()
   const {openSignIn, openUserProfile} = useClerk()
   console.log(user)
@@ -67,13 +69,16 @@ const Header = () => {
         <nav className='hidden md:block'>
           <ul className='flex items-center gap-x-4'>
             <li>
-              <Link href='/' className='block px-2 font-semibold'>Home</Link>
+              <Link href='/'
+                    className={`block px-2 font-semibold ${pathname == '/' ? 'underline decoration-red decoration-2 ' : ''}`}>Home</Link>
             </li>
             <li>
-              <Link href={'/shop'} className='block px-2 font-semibold'>Shop</Link>
+              <Link href={'/shop'}
+                    className={`block px-2 font-semibold ${pathname.includes('shop') ? 'underline decoration-red decoration-2 ' : ''}`}>Shop</Link>
             </li>
             <li>
-              <Link href={'/about'} className='block px-2 font-semibold'>About</Link>
+              <Link href={'/about'}
+                    className={`block px-2 font-semibold ${pathname.includes('about') ? 'underline decoration-red decoration-2 ' : ''}`}>About</Link>
             </li>
 
           </ul>
@@ -109,7 +114,7 @@ const Header = () => {
 
 
       {/* mobile */}
-      
+
       <div
         className={`z-[5] fixed md:hidden top-0 w-[50%] min-w-[400px] right-0 h-full bg-[#f5f5f5] ${menuOpen ? 'translate-x-0 opacity-1' : 'translate-x-[100%] opacity-0'} transition ease-linear duration-75 `}>
         <nav className='mt-[70px]  w-full h-full'>
@@ -134,25 +139,30 @@ const Header = () => {
 
 
             <li>
-              <div onClick={() => openUserProfile()} className='text-lg font-bold cursor-pointer'>Profile</div>
+              <div onClick={() => openUserProfile()}
+                   className='text-lg font-bold cursor-pointer underline decoration-2 decoration-red'>Profile
+              </div>
 
             </li>
 
             <li>
-              <Link href='/' className='text-lg font-bold '>
+              <Link href='/' onClick={() => setMenuOpen(false)}
+                    className={`text-lg font-bold ${pathname == '/' ? 'text-red' : ''}`}>
                 Home
               </Link>
             </li>
 
             <li>
-              <Link href={'/shop'} className='text-lg font-bold '>
+              <Link href={'/shop'} onClick={() => setMenuOpen(false)}
+                    className={`text-lg font-bold ${pathname.includes('/shop') ? 'text-red' : ''}`}>
                 Shop
               </Link>
             </li>
 
 
             <li>
-              <Link href={'/about'} className='text-lg font-bold '>
+              <Link href={'/about'} onClick={() => setMenuOpen(false)}
+                    className={`text-lg font-bold ${pathname.includes('/about') ? 'text-red' : ''}`}>
                 About
               </Link>
             </li>
