@@ -109,10 +109,9 @@ const Header = () => {
 
 
       {/* mobile */}
-
-
+      
       <div
-        className={`z-[5] fixed md:hidden top-0 w-[50%] min-w-[400px] right-0 h-full bg-gray-100 backdrop-blur-lg  ${menuOpen ? 'translate-x-0 opacity-1' : 'translate-x-[100%] opacity-0'} transition ease-linear duration-75 backdrop-blur-lg`}>
+        className={`z-[5] fixed md:hidden top-0 w-[50%] min-w-[400px] right-0 h-full bg-[#f5f5f5] ${menuOpen ? 'translate-x-0 opacity-1' : 'translate-x-[100%] opacity-0'} transition ease-linear duration-75 `}>
         <nav className='mt-[70px]  w-full h-full'>
           <ul className='flex py-4 items-center flex-col gap-10 w-full h-full'>
             {user && (
