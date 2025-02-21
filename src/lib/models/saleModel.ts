@@ -22,6 +22,10 @@ const saleSchema = new Schema({
   coupon: {
     type: String,
     min: 5,
+  },
+  isValid: {
+    type: Boolean,
+    default: true
   }
 }, {timestamps: true})
 
