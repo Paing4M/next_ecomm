@@ -9,8 +9,6 @@ const connectDb = async (url: string | undefined = process.env.MONGODB_URI) => {
     }
 
     const mongooseOpts = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       bufferCommands: true
     } as MongooseOptions
 

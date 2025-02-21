@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 
 
-interface Product {
+export interface ProductShemaI extends mongoose.Document {
+  _id: string;
   name: string,
   slug: string,
   category: string,
@@ -13,6 +14,8 @@ interface Product {
   tags: string[],
   isPublished: boolean,
   reviews: string[],
+  createdAt: Date,
+  updatedAt: Date,
 }
 
 const productSchema = new mongoose.Schema({
@@ -63,6 +66,6 @@ const productSchema = new mongoose.Schema({
   },
 }, {timestamps: true});
 
-const Product = mongoose.models?.Product || mongoose.model<Product>('Product', productSchema);
+const Product = (mongoose.models?.Product as mongoose.Model<ProductShemaI>) || mongoose.model<ProductShemaI>('Product', productSchema);
 
 export default Product;
