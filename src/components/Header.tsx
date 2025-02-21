@@ -70,15 +70,15 @@ const Header = () => {
           <ul className='flex items-center gap-x-4'>
             <li>
               <Link href='/'
-                    className={`block px-2 font-semibold ${pathname == '/' ? 'underline decoration-red decoration-2 ' : ''}`}>Home</Link>
+                    className={`block px-2 font-semibold ${pathname == '/' ? 'underline decoration-redBackground decoration-2 ' : ''}`}>Home</Link>
             </li>
             <li>
               <Link href={'/shop'}
-                    className={`block px-2 font-semibold ${pathname.includes('shop') ? 'underline decoration-red decoration-2 ' : ''}`}>Shop</Link>
+                    className={`block px-2 font-semibold ${pathname.includes('shop') ? 'underline decoration-redBackground decoration-2 ' : ''}`}>Shop</Link>
             </li>
             <li>
               <Link href={'/about'}
-                    className={`block px-2 font-semibold ${pathname.includes('about') ? 'underline decoration-red decoration-2 ' : ''}`}>About</Link>
+                    className={`block px-2 font-semibold ${pathname.includes('about') ? 'underline decoration-redBackground decoration-2 ' : ''}`}>About</Link>
             </li>
 
           </ul>
@@ -140,7 +140,7 @@ const Header = () => {
 
             <li>
               <div onClick={() => openUserProfile()}
-                   className='text-lg font-bold cursor-pointer underline decoration-2 decoration-red'>Profile
+                   className='text-lg font-bold cursor-pointer underline decoration-2 decoration-redBackground'>Profile
               </div>
 
             </li>
