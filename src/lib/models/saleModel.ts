@@ -1,11 +1,12 @@
 import {Schema, models, model, Model} from 'mongoose'
 
 
-interface SaleInterface {
+export interface SaleInterface {
   _id: string,
   name: string,
   discount: number,
   coupon: string,
+  isValid: boolean,
   createdAt: Date,
   updatedAt: Date,
 }

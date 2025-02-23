@@ -7,7 +7,7 @@ export const getPopularProducts = async () => {
   const products = await Product.find({
     isPublished: true,
     tags: {$in: 'popular'}
-  })
+  }).limit(5);
 
   return JSON.parse(JSON.stringify(products));
 }
