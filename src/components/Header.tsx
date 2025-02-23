@@ -61,7 +61,7 @@ const Header = () => {
 
         {/* menu */}
         <button onClick={() => setMenuOpen(prev => !prev)}
-                className='absolute md:hidden top-0 bottom-0 right-0 z-10 p-2 rounded-full'>
+                className='absolute md:hidden top-0 bottom-0 right-0 z-[15] p-2 rounded-full'>
           {menuOpen ? <CloseIcon/> : <MenuIcon/>}
         </button>
 
@@ -116,7 +116,7 @@ const Header = () => {
       {/* mobile */}
 
       <div
-        className={`z-[5] fixed md:hidden top-0 w-[50%] min-w-[400px] right-0 h-full bg-[#f5f5f5] ${menuOpen ? 'translate-x-0 opacity-1' : 'translate-x-[100%] opacity-0'} transition ease-linear duration-75 `}>
+        className={`z-[10] fixed md:hidden top-0 w-screen sm:w-[50%] overflow-hidden right-0 h-full bg-[#f5f5f5] ${menuOpen ? 'translate-x-0 opacity-1' : 'translate-x-[100%] opacity-0'} transition ease-linear duration-75 `}>
         <nav className='mt-[70px]  w-full h-full'>
           <ul className='flex py-4 items-center flex-col gap-10 w-full h-full'>
             {user && (
