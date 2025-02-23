@@ -107,7 +107,8 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
             <div key={product._id} className='w-full overflow-hidden rounded h-auto p-2 group'>
               <div className='relative'></div>
               <Link href={`/product/${product.slug}`}>
-                <Image className='h-[300px] md:h-[250px] object-fit' src={getImageUrl(product.images[0])} width={500}
+                <Image className='h-auto sm:h-[250px] object-fit' src={getImageUrl(product.images[0])}
+                       width={500}
                        height={300}
                        alt={`${product.name}-image`}/>
               </Link>
