@@ -59,6 +59,29 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
     slidesToScroll: 4,
     prevArrow: <Prev/>,
     nextArrow: <Next/>,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        }
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
   };
 
   console.log(products);
@@ -81,9 +104,10 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
 
         <Slider className='mt-5' {...settings}>
           {products?.map((product) => (
-            <div key={product._id} className='w-full relative rounded h-auto p-2'>
+            <div key={product._id} className='w-full overflow-hidden rounded h-auto p-2 group'>
+              <div className='relative'></div>
               <Link href={`/product/${product.slug}`}>
-                <Image className='h-[250px] object-fit' src={getImageUrl(product.images[0])} width={500}
+                <Image className='h-[300px] md:h-[250px] object-fit' src={getImageUrl(product.images[0])} width={500}
                        height={300}
                        alt={`${product.name}-image`}/>
               </Link>
@@ -96,9 +120,12 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
                 {/*  Product Rating  */}
               </div>
             </div>
+
           ))}
         </Slider>
       </div>
+
+      <div className='sm:p-2 md:p-2 lg:p-2'></div>
     </div>
   )
 }
