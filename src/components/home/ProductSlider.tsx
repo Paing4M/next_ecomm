@@ -9,19 +9,20 @@ import {getImageUrl} from "@/lib/utils";
 import React from "react";
 import {ArrowLeft, ArrowRight} from "lucide-react";
 import Link from "next/link";
+import Title from "@/components/Title";
 
 
-interface SliderArrowProps {
+export interface SliderArrowProps {
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
   onClick?: any
 }
 
-const SliderArrow = ({className, style, children, onClick}: SliderArrowProps) => {
+export const SliderArrow = ({className, style, children, onClick}: SliderArrowProps) => {
   return (
     <button onClick={onClick}
-            className={`absolute top-[-14%] z-[5] p-1 rounded bg-gray-200  ${className} `}
+            className={`absolute  z-[5] p-1 rounded bg-gray-200  ${className} `}
             style={{...style}}>
       {children}
     </button>
@@ -30,7 +31,7 @@ const SliderArrow = ({className, style, children, onClick}: SliderArrowProps) =>
 
 const Prev = ({onClick}: { onClick?: any }) => {
   return (
-    <SliderArrow onClick={onClick} className=' right-[4rem]'>
+    <SliderArrow onClick={onClick} className='right-[4rem] top-[-15%]'>
       <ArrowLeft/>
     </SliderArrow>
   )
@@ -38,7 +39,7 @@ const Prev = ({onClick}: { onClick?: any }) => {
 
 const Next = ({onClick}: { onClick?: any }) => {
   return (
-    <SliderArrow onClick={onClick} className='right-[1rem]'>
+    <SliderArrow onClick={onClick} className='right-[1rem] top-[-15%]'>
       <ArrowRight/>
     </SliderArrow>
   )
@@ -84,19 +85,11 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
     ]
   };
 
-  console.log(products);
-
-
   if (products.length == 0) return
 
   return (
     <div className='w-full h-auto mt-10'>
-      <div className='flex gap-3 items-center mb-4'>
-        <div className='w-[10px] rounded h-[24px] bg-redBackground'/>
-        <p className='text-sm text-redBackground'>
-          {title}
-        </p>
-      </div>
+      <Title title={title}/>
 
       <div>
 
@@ -126,7 +119,6 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
         </Slider>
       </div>
 
-      <div className='sm:p-2 md:p-2 lg:p-2'></div>
     </div>
   )
 }

@@ -44,7 +44,6 @@ const Header = () => {
   const pathname = usePathname()
   const {user} = useUser()
   const {openSignIn, openUserProfile} = useClerk()
-  console.log(user)
 
   const handleSignInModal = () => {
     openSignIn()

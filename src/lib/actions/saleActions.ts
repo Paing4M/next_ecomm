@@ -3,7 +3,7 @@ import Sale from "@/lib/models/saleModel";
 
 export const getLatestSale = async () => {
   try {
-    await connectDb(process.env.MONGODB_URI2);
+    await connectDb();
     const sale = await Sale.findOne({
       isValid: true,
     }).limit(1).sort({createdAt: -1})

@@ -21,3 +21,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.slick-track {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
