@@ -36,6 +36,12 @@ export default async function Home() {
       <div className='mt-10'>
         <CategoryList categories={allCategories}/>
       </div>
+      <hr/>
+
+      {/* products */}
+      <div className='mt-10'>
+        
+      </div>
 
       {/* latest */}
       <div>
