@@ -10,6 +10,7 @@ import React from "react";
 import {ArrowLeft, ArrowRight} from "lucide-react";
 import Link from "next/link";
 import Title from "@/components/Title";
+import ProductCard from "@/components/product/ProductCard";
 
 
 export interface SliderArrowProps {
@@ -22,7 +23,7 @@ export interface SliderArrowProps {
 export const SliderArrow = ({className, style, children, onClick}: SliderArrowProps) => {
   return (
     <button onClick={onClick}
-            className={`absolute  z-[5] p-1 rounded bg-gray-200  ${className} `}
+            className={`absolute z-[5] p-1 rounded bg-gray-100  ${className} `}
             style={{...style}}>
       {children}
     </button>
@@ -31,7 +32,8 @@ export const SliderArrow = ({className, style, children, onClick}: SliderArrowPr
 
 const Prev = ({onClick}: { onClick?: any }) => {
   return (
-    <SliderArrow onClick={onClick} className='right-[4rem] top-[-15%]'>
+    <SliderArrow onClick={onClick}
+                 className='left-0 sm:left-auto w-fit right-0 sm:right-[2.5rem] sm:top-[-11%] top-[50%] translate-y-[-50%] '>
       <ArrowLeft/>
     </SliderArrow>
   )
@@ -39,7 +41,8 @@ const Prev = ({onClick}: { onClick?: any }) => {
 
 const Next = ({onClick}: { onClick?: any }) => {
   return (
-    <SliderArrow onClick={onClick} className='right-[1rem] top-[-15%]'>
+    <SliderArrow onClick={onClick}
+                 className='right-0 w-fit sm:top-[-11%] top-[50%] translate-y-[-50%] '>
       <ArrowRight/>
     </SliderArrow>
   )
@@ -97,24 +100,7 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
 
         <Slider className='mt-5' {...settings}>
           {products?.map((product) => (
-            <div key={product._id} className='w-full overflow-hidden rounded h-auto p-2 group'>
-              <div className='relative'></div>
-              <Link href={`/product/${product.slug}`}>
-                <Image className='h-auto sm:h-[250px] object-fit' src={getImageUrl(product.images[0])}
-                       width={500}
-                       height={300}
-                       alt={`${product.name}-image`}/>
-              </Link>
-
-              <div className='mt-2'>
-                <Link href={`/product/${product.slug}`}>
-                  <h4 className='font-semibold'>{product.name}</h4>
-                </Link>
-                <p>$ {product.price}</p>
-                {/*  Product Rating  */}
-              </div>
-            </div>
-
+            <ProductCard key={product._id} product={product}/>
           ))}
         </Slider>
       </div>

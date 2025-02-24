@@ -19,7 +19,7 @@ interface ArrowProps {
 const Prev = ({onClick}: { onClick?: any }) => {
 
   return (
-    <SliderArrow onClick={onClick} className='top-[-50%] right-[4rem]'>
+    <SliderArrow onClick={onClick} className=' hidden sm:block top-[-2rem] right-[2.5rem]'>
       <ArrowLeft/>
     </SliderArrow>
   )
@@ -28,7 +28,7 @@ const Prev = ({onClick}: { onClick?: any }) => {
 const Next = ({onClick}: { onClick?: any }) => {
 
   return (
-    <SliderArrow onClick={onClick} className='right-[1rem] top-[-50%]'>
+    <SliderArrow onClick={onClick} className='hidden sm:block right-0 top-[-2rem]'>
       <ArrowRight/>
     </SliderArrow>
   )
@@ -49,12 +49,14 @@ const CategoryList = ({categories}: { categories: CategoryHomeInterface[] }) => 
         breakpoint: 1198,
         settings: {
           slidesToShow: 7,
+          slidesToScroll: 7,
         }
       },
       {
         breakpoint: 1045,
         settings: {
           slidesToShow: 6,
+          slidesToScroll: 6,
         }
       },
 
@@ -62,24 +64,28 @@ const CategoryList = ({categories}: { categories: CategoryHomeInterface[] }) => 
         breakpoint: 910,
         settings: {
           slidesToShow: 5,
+          slidesToScroll: 5,
         }
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 4,
+          slidesToScroll: 4,
         }
       },
       {
         breakpoint: 640,
         settings: {
           slidesToShow: 3,
+          slidesToScroll: 3,
         }
       },
       {
         breakpoint: 410,
         settings: {
           slidesToShow: 2,
+          slidesToScroll: 2,
         }
       },
       {
@@ -109,7 +115,17 @@ const CategoryList = ({categories}: { categories: CategoryHomeInterface[] }) => 
               </Link>
             </div>
           ))}
-          
+
+
+          {categories.map((category) => (
+            <div key={category._id} className='min-w-[100px] h-fit py-3 text-wrap px-2'>
+              <Link href={`/products?category=${category.slug}`}
+                    className='p-2 border rounded hover:bg-redBackground hover:text-white w-full block text-center'>
+                {category.name}
+              </Link>
+            </div>
+          ))}
+
         </Slider>
       </div>
 

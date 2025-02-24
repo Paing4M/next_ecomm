@@ -11,3 +11,14 @@ export const getPopularProducts = async (limit: number = 5) => {
 
   return JSON.parse(JSON.stringify(products));
 }
+
+
+export const getLimitProducts = async (limit: number = 8) => {
+  await connectDb()
+
+  const products = await Product.find({
+    isPublished: true,
+  }).limit(limit);
+
+  return JSON.parse(JSON.stringify(products));
+}

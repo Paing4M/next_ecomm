@@ -2,16 +2,19 @@ import {getLatestSale} from "@/lib/actions/saleActions";
 import {SaleInterface} from "@/lib/models/saleModel";
 import SaleBanner from "@/components/home/SaleBanner";
 import ProductSlider from "@/components/home/ProductSlider";
-import {getPopularProducts} from "@/lib/actions/productActions";
+import {getLimitProducts, getPopularProducts} from "@/lib/actions/productActions";
 import Link from "next/link";
 import {getAllCategories} from "@/lib/actions/categoryActions";
 import {ProductShemaI} from "@/lib/models/productModel";
 import CategoryList from "@/components/home/CategoryList";
+import OurProducts from "@/components/home/OurProducts";
+import ProductsLink from "@/components/product/ProductsLink";
 
 export default async function Home() {
   const sale: SaleInterface | null = await getLatestSale()
   const popularProducts: ProductShemaI[] = await getPopularProducts() || []
   const allCategories: CategoryHomeInterface[] = await getAllCategories() || []
+  const limitProducts: ProductShemaI[] = await getLimitProducts() || []
 
   console.log(allCategories)
 
@@ -26,9 +29,7 @@ export default async function Home() {
       </div>
 
 
-      <div className='mt-2 mb-6 flex items-center justify-center'>
-        <Link href={'/products'} className='px-3 py-2 rounded text-white bg-redBackground'>View all products</Link>
-      </div>
+      <ProductsLink/>
 
       <hr/>
 
@@ -40,8 +41,12 @@ export default async function Home() {
 
       {/* products */}
       <div className='mt-10'>
-        
+        <OurProducts products={limitProducts}/>
       </div>
+
+      <ProductsLink/>
+
+      <hr/>
 
       {/* latest */}
       <div>
