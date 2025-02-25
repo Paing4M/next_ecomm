@@ -2,21 +2,21 @@ import {getLatestSale} from "@/lib/actions/saleActions";
 import {SaleInterface} from "@/lib/models/saleModel";
 import SaleBanner from "@/components/home/SaleBanner";
 import ProductSlider from "@/components/home/ProductSlider";
-import {getLimitProducts, getPopularProducts} from "@/lib/actions/productActions";
+import {getLatestProducts, getLimitProducts, getPopularProducts} from "@/lib/actions/productActions";
 import Link from "next/link";
 import {getAllCategories} from "@/lib/actions/categoryActions";
 import {ProductShemaI} from "@/lib/models/productModel";
 import CategoryList from "@/components/home/CategoryList";
 import OurProducts from "@/components/home/OurProducts";
 import ProductsLink from "@/components/product/ProductsLink";
+import LatestProduct from "@/components/home/LatestProduct";
 
 export default async function Home() {
   const sale: SaleInterface | null = await getLatestSale()
   const popularProducts: ProductShemaI[] = await getPopularProducts() || []
   const allCategories: CategoryHomeInterface[] = await getAllCategories() || []
   const limitProducts: ProductShemaI[] = await getLimitProducts() || []
-
-  console.log(allCategories)
+  const latestProducts: ProductShemaI[] = await getLatestProducts() || []
 
 
   return (
@@ -49,8 +49,8 @@ export default async function Home() {
       <hr/>
 
       {/* latest */}
-      <div>
-
+      <div className='mt-10'>
+        <LatestProduct products={latestProducts}/>
       </div>
     </div>
   );

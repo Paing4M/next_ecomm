@@ -7,7 +7,7 @@ import React from "react";
 const ProductCard = ({product}: { product: ProductShemaI }) => {
   return (
     <div className='w-full overflow-hidden rounded h-auto p-2 group'>
-      <Link href={`/product/${product.slug}`}>
+      <Link href={`/products/${product.slug}`}>
         <Image className='h-auto sm:h-[250px] object-fit' src={getImageUrl(product.images[0])}
                width={500}
                height={300}
@@ -15,7 +15,7 @@ const ProductCard = ({product}: { product: ProductShemaI }) => {
       </Link>
 
       <div className='mt-2'>
-        <Link href={`/product/${product.slug}`}>
+        <Link href={`/products/${product.slug}`}>
           <h4 className='font-semibold'>{product.name}</h4>
         </Link>
         <p>$ {product.price}</p>

@@ -22,3 +22,15 @@ export const getLimitProducts = async (limit: number = 8) => {
 
   return JSON.parse(JSON.stringify(products));
 }
+
+export const getLatestProducts = async (limit: number = 4) => {
+  await connectDb()
+
+  const products = await Product.find({
+    isPublished: true,
+  })
+    .sort({createdAt: -1})
+    .limit(limit);
+
+  return JSON.parse(JSON.stringify(products));
+}
