@@ -12,10 +12,10 @@ const SaleBanner = ({sale}: { sale: SaleInterface }) => {
             {sale.name}
           </h3>
           <h3 className='text-white text-[2rem] md:text-[3rem] font-semibold text-wrap leading-none'>
-            Up to {sale.discount} off
+            Up to {sale.discount}% off
           </h3>
 
-          <p className='text-white font-semibold text-lg mt-3'>coupon : {sale.coupon}</p>
+          <p className='text-white font-semibold text-lg mt-3'>Use this coupon code : {sale.coupon}</p>
         </div>
       </div>
     </div>
