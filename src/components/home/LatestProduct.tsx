@@ -8,7 +8,7 @@ const LatestProduct = ({products}: { products: ProductShemaI[] }) => {
   if (products.length == 0) return null;
 
   return (
-    <div>
+    <div className='mb-14'>
 
       <Title title={'Featured'}/>
 
