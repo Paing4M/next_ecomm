@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, {Schema} from 'mongoose';
 
 
 export interface ProductShemaI extends mongoose.Document {
@@ -62,9 +62,12 @@ const productSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
-  reviews: {
-    type: [String],
-  },
+  reviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Review'
+    },
+  ],
 }, {timestamps: true});
 
 const Product = (mongoose.models?.Product as mongoose.Model<ProductShemaI>) || mongoose.model<ProductShemaI>('Product', productSchema);
