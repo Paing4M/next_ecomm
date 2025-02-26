@@ -1,4 +1,4 @@
-import {ProductShemaI} from "@/lib/models/productModel";
+import {ProductShemaI} from "@/lib/db/models/productModel";
 import Image from "next/image";
 import {getImageUrl} from "@/lib/utils";
 import Link from "next/link";

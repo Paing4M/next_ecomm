@@ -1,4 +1,4 @@
-import {SaleInterface} from "@/lib/models/saleModel";
+import {SaleInterface} from "@/lib/db/models/saleModel";
 
 const SaleBanner = ({sale}: { sale: SaleInterface }) => {
 

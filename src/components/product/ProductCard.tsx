@@ -1,11 +1,13 @@
-import {ProductShemaI} from "@/lib/models/productModel";
+import {ProductShemaI} from "@/lib/db/models/productModel";
 import Link from "next/link";
 import Image from "next/image";
 import {getImageUrl} from "@/lib/utils";
 
 const ProductCard = ({product, widthPercent}: { product: ProductShemaI, widthPercent?: string }) => {
   return (
-    <div className={`h-auto rounded p-4 group border shadow w-[${widthPercent}]`}>
+    <div style={{
+      width: widthPercent || '100%',
+    }} className={`h-auto rounded p-4 group border shadow`}>
       <Link href={`/products/${product.slug}`} className='block'>
         <Image className='h-auto sm:h-[240px] object-fit' src={getImageUrl(product.images[0])}
                width={500}

@@ -1,11 +1,11 @@
 import {getLatestSale} from "@/lib/actions/saleActions";
-import {SaleInterface} from "@/lib/models/saleModel";
+import {SaleInterface} from "@/lib/db/models/saleModel";
 import SaleBanner from "@/components/home/SaleBanner";
 import ProductSlider from "@/components/home/ProductSlider";
 import {getLatestProducts, getLimitProducts, getPopularProducts} from "@/lib/actions/productActions";
 import Link from "next/link";
 import {getAllCategories} from "@/lib/actions/categoryActions";
-import {ProductShemaI} from "@/lib/models/productModel";
+import {ProductShemaI} from "@/lib/db/models/productModel";
 import CategoryList from "@/components/home/CategoryList";
 import OurProducts from "@/components/home/OurProducts";
 import ProductsLink from "@/components/product/ProductsLink";

@@ -1,4 +1,4 @@
-import {ProductShemaI} from "@/lib/models/productModel";
+import {ProductShemaI} from "@/lib/db/models/productModel";
 import Title from "@/components/Title";
 import React from "react";
 import LatestProductCard from "@/components/product/LatestProductCard";

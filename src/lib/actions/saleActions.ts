@@ -1,5 +1,5 @@
-import connectDb from "@/lib/db";
-import Sale from "@/lib/models/saleModel";
+import connectDb from "@/lib/db/db";
+import Sale from "@/lib/db/models/saleModel";
 
 export const getLatestSale = async () => {
   try {

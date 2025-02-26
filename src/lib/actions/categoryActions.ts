@@ -1,6 +1,6 @@
-import connectDb from "@/lib/db";
-import Category from "@/lib/models/categoryModel";
-import Product from "@/lib/models/productModel";
+import connectDb from "@/lib/db/db";
+import Category from "@/lib/db/models/categoryModel";
+import Product from "@/lib/db/models/productModel";
 
 export const getAllCategories = async () => {
   try {

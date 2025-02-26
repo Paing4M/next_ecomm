@@ -1,5 +1,5 @@
-import connectDb from "@/lib/db";
-import Product from "@/lib/models/productModel";
+import connectDb from "@/lib/db/db";
+import Product from "@/lib/db/models/productModel";
 
 export const getPopularProducts = async (limit: number = 5) => {
   await connectDb()

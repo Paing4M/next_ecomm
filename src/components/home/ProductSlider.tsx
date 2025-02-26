@@ -3,7 +3,7 @@
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {ProductShemaI} from "@/lib/models/productModel";
+import {ProductShemaI} from "@/lib/db/models/productModel";
 import Image from "next/image";
 import {getImageUrl} from "@/lib/utils";
 import React from "react";

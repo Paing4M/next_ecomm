@@ -1,6 +1,6 @@
-import connectDb from "@/lib/db";
-import Product from "@/lib/models/productModel";
-import {products as data} from "@/lib/data";
+import connectDb from "@/lib/db/db";
+import Product from "@/lib/db/models/productModel";
+import {products as data} from "@/lib/db/data";
 import {loadEnvConfig} from "@next/env";
 
 const projectDir = process.cwd()

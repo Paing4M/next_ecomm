@@ -1,7 +1,7 @@
-import connectDb from "@/lib/db";
-import {categories} from "@/lib/data";
+import connectDb from "@/lib/db/db";
+import {categories} from "@/lib/db/data";
 import {loadEnvConfig} from "@next/env";
-import Category from "@/lib/models/categoryModel";
+import Category from "@/lib/db/models/categoryModel";
 
 const projectDir = process.cwd()
 loadEnvConfig(projectDir)
