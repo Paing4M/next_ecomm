@@ -1,4 +1,4 @@
-import mongoose, {Schema} from 'mongoose';
+import mongoose, {Schema, Types} from 'mongoose';
 import {ReviewInterface} from "@/lib/db/models/reviewModel";
 
 
@@ -6,7 +6,7 @@ export interface ProductShemaI extends mongoose.Document {
   _id: string;
   name: string,
   slug: string,
-  category: string,
+  category: Types.ObjectId,
   images: string[],
   brand: string,
   description: string,
@@ -19,7 +19,7 @@ export interface ProductShemaI extends mongoose.Document {
   updatedAt: Date,
 }
 
-const productSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema<ProductShemaI>({
   name: {
     type: String,
     required: true,
@@ -71,6 +71,6 @@ const productSchema = new mongoose.Schema({
   ],
 }, {timestamps: true});
 
-const Product = (mongoose.models?.Product as mongoose.Model<ProductShemaI>) || mongoose.model<ProductShemaI>('Product', productSchema);
+const Product = mongoose.models?.Product || mongoose.model<ProductShemaI>('Product', productSchema);
 
 export default Product;

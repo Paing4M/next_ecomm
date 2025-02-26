@@ -10,6 +10,12 @@ import CategoryList from "@/components/home/CategoryList";
 import OurProducts from "@/components/home/OurProducts";
 import ProductsLink from "@/components/product/ProductsLink";
 import LatestProduct from "@/components/home/LatestProduct";
+import type {Metadata} from "next";
+
+
+export const metadata: Metadata = {
+  title: 'Home',
+};
 
 export default async function Home() {
   const sale: SaleInterface | null = await getLatestSale()

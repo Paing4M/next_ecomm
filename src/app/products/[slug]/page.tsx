@@ -1,19 +1,33 @@
 import type {Metadata} from "next";
+import {redirect} from "next/navigation";
+import {getProductBySlug, getRelatedProductByCategory} from "@/lib/actions/productActions";
+import ProductDetail from "@/components/product/ProductDetail";
+import RelatedProducts from "@/components/product/RelatedProducts";
 
 export const metadata: Metadata = {
-  title: 'Product Details',
+  title: 'Product Detail',
 };
 
+interface ProductDetailPageProps {
+  params: Promise<{ slug: string }>
+}
 
-const Page = async ({params}) => {
 
-  const test = await params
-  console.log(test)
+const ProductDetailPage = async ({params}: ProductDetailPageProps) => {
+  const {slug} = await params
+  if (!slug) return redirect('/')
 
+  const product = await getProductBySlug(slug)
+  const relatedProducts = await getRelatedProductByCategory(slug)
 
   return (
-    <div className='py-3'></div>
+    <div className='py-3'>
+      <ProductDetail product={product}/>
+      
+      <RelatedProducts products={relatedProducts}/>
+
+    </div>
   )
 }
 
-export default Page
+export default ProductDetailPage
