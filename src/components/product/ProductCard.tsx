@@ -21,7 +21,7 @@ const ProductCard = ({product, widthPercent}: { product: ProductShemaI, widthPer
 
         {/*  Product Rating  */}
 
-        <button className='w-full bg-black text-center py-2 text-white rounded'>Add to cart</button>
+        <button className='w-full bg-black text-center mt-4 py-2 text-white rounded'>Add to cart</button>
       </div>
     </div>
   )
