@@ -31,3 +31,4 @@ const reviewSchema = new Schema<ReviewInterface>({
 
 const Review = models.Review || model<ReviewInterface>('Review', reviewSchema);
 
+export default Review;
