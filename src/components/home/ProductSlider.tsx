@@ -65,7 +65,7 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
     nextArrow: <Next/>,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1124,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
@@ -98,9 +98,9 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
 
         <h1 className='text-xl font-bold'>{productTitle}</h1>
 
-        <Slider className='mt-5' {...settings}>
+        <Slider className='mt-5 flex gap-3' {...settings}>
           {products?.map((product) => (
-            <ProductCard key={product._id} product={product}/>
+            <ProductCard key={product._id} product={product} widthPercent='95%'/>
           ))}
         </Slider>
       </div>

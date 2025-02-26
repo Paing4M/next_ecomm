@@ -2,24 +2,26 @@ import {ProductShemaI} from "@/lib/models/productModel";
 import Link from "next/link";
 import Image from "next/image";
 import {getImageUrl} from "@/lib/utils";
-import React from "react";
 
-const ProductCard = ({product}: { product: ProductShemaI }) => {
+const ProductCard = ({product, widthPercent}: { product: ProductShemaI, widthPercent?: string }) => {
   return (
-    <div className='w-full overflow-hidden rounded h-auto p-2 group'>
-      <Link href={`/products/${product.slug}`}>
-        <Image className='h-auto sm:h-[250px] object-fit' src={getImageUrl(product.images[0])}
+    <div className={`h-auto rounded p-4 group border shadow w-[${widthPercent}]`}>
+      <Link href={`/products/${product.slug}`} className='block'>
+        <Image className='h-auto sm:h-[240px] object-fit' src={getImageUrl(product.images[0])}
                width={500}
                height={300}
                alt={`${product.name}-image`}/>
       </Link>
 
-      <div className='mt-2'>
+      <div className='mt-2 overflow-hidden'>
         <Link href={`/products/${product.slug}`}>
-          <h4 className='font-semibold'>{product.name}</h4>
+          <h4 className='font-semibold truncate'>{product.name}</h4>
         </Link>
-        <p>$ {product.price}</p>
+        <p>$ {product.price.toFixed(2)}</p>
+
         {/*  Product Rating  */}
+
+        <button className='w-full bg-black text-center py-2 text-white rounded'>Add to cart</button>
       </div>
     </div>
   )
