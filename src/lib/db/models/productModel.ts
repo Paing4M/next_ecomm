@@ -1,4 +1,5 @@
 import mongoose, {Schema} from 'mongoose';
+import {ReviewInterface} from "@/lib/db/models/reviewModel";
 
 
 export interface ProductShemaI extends mongoose.Document {
@@ -13,7 +14,7 @@ export interface ProductShemaI extends mongoose.Document {
   countInStock: number,
   tags: string[],
   isPublished: boolean,
-  reviews: string[],
+  reviews: ReviewInterface[],
   createdAt: Date,
   updatedAt: Date,
 }
