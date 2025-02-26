@@ -15,7 +15,7 @@ const ProductDetail = ({product}: { product: ProductShemaI }) => {
     setImg(product.images[idx]);
   }, [idx])
 
-  const handleMouseEnter = (idx: number) => {
+  const handleImageIdx = (idx: number) => {
     setIdx(idx);
   }
 
@@ -37,7 +37,8 @@ const ProductDetail = ({product}: { product: ProductShemaI }) => {
         <div className='flex flex-row md:flex-col gap-4 '>
           {/* images */}
           {product.images?.map((img, idx) => (
-            <div onMouseEnter={() => handleMouseEnter(idx)} key={product._id + '-' + img}
+            <div onClick={() => handleImageIdx(idx)} onMouseEnter={() => handleImageIdx(idx)}
+                 key={product._id + '-' + img}
                  className='cursor-pointer w-fit p-4 object-contain  relative border rounded-md'>
               <Image width={80} height={80} className='object-fit' src={getImageUrl(img)}
                      alt={'img-' + product.name}/>
@@ -55,7 +56,7 @@ const ProductDetail = ({product}: { product: ProductShemaI }) => {
 
 
       {/* detail */}
-      <div className='ml-6'>
+      <div className='ml-0 md:ml-6 mt-6 md:mt-0'>
         <h1 className='text-xl font-bold flex-[2]'>{product.name}</h1>
 
         {/*<Rating/>*/}
