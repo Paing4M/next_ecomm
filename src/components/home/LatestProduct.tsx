@@ -12,7 +12,7 @@ const LatestProduct = ({products}: { products: ProductShemaI[] }) => {
 
       <Title title={'Featured'}/>
 
-      <h1 className='text-xl font-bold'>New Arrival</h1>
+      <h1 className='text-xl font-bold'>Latest Products</h1>
 
       <div className='mt-5'>
 
@@ -28,9 +28,7 @@ const LatestProduct = ({products}: { products: ProductShemaI[] }) => {
 
           <LatestProductCard className='h-[300px] sm:h-full' product={products[3]}/>
 
-
         </div>
-
 
       </div>
     </div>

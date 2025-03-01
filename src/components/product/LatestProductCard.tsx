@@ -5,8 +5,9 @@ import Link from "next/link";
 
 const LatestProductCard = ({product, className}: { product: ProductShemaI, className?: string }) => {
   return (
-    <div className={`relative w-full  rounded overflow-hidden ${className}`}>
-      <Image className='object-cover w-full h-full' fill src={getImageUrl(product.images[0])}
+    <div className={`relative w-full group  rounded overflow-hidden ${className}`}>
+      <Image className='object-cover group-hover:scale-105 duration-150 ease-linear w-full h-full' fill
+             src={getImageUrl(product.images[0])}
              alt={'img-' + product.name}/>
       <div className='absolute z-[2] inset-0 bg-black/70'/>
 
