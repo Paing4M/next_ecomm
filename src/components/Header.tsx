@@ -7,6 +7,7 @@ import {useClerk, UserButton, useUser} from "@clerk/nextjs";
 import React, {useEffect, useState} from "react";
 import {CloseIcon} from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import useDebounce from "@/hooks/useDebounce";
 
 
 interface UserInfoUIProps {
@@ -40,8 +41,7 @@ const UserInfoUI = ({handleSignInModal, className}: UserInfoUIProps) => {
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [query, setQuery] = useState<string>('');
-
+  const [query, setQuery] = useState('')
 
   const pathname = usePathname()
   const router = useRouter()
@@ -54,9 +54,7 @@ const Header = () => {
   }
 
 
-  const searchSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-
+  useEffect(() => {
     const params = new URLSearchParams(searchParams)
     if (query.toString()) {
       params.set('query', query)
@@ -64,11 +62,8 @@ const Header = () => {
       params.delete('query')
     }
     router.push('/products?' + params.toString(), {scroll: false})
-  }
+  }, [searchParams, query]);
 
-  useEffect(() => {
-    setQuery(searchParams.get('query') || '')
-  }, [searchParams]);
 
   return (
     <header className='h-[70px] flex items-center border-b border-gray-200'>
@@ -107,17 +102,17 @@ const Header = () => {
 
         <div className='hidden md:flex items-center gap-x-6 pr-2'>
           {/* search */}
-          <form onSubmit={searchSubmit}
-                className='items-center gap-x-1 border border-gray-400 rounded-md overflow-hidden px-2 py-1 flex'>
+          <div
+            className='items-center gap-x-1 border border-gray-400 rounded-md overflow-hidden px-2 py-1 flex'>
             <input
               value={query || ''}
               onChange={(e) => setQuery(e.target.value)}
               type="text" placeholder='What are you looking for?'
               className='border-none outline-none w-full h-full'/>
-            <button type={'submit'}>
-              <SearchIcon className='text-gray-800'/>
-            </button>
-          </form>
+
+            <SearchIcon className='text-gray-800'/>
+          
+          </div>
 
           {/* cart */}
           <div className='relative'>
