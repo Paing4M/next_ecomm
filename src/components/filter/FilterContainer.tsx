@@ -72,8 +72,7 @@ const FilterContainer = ({categories, brands, className}: FilterContainerProps) 
         category: categories
       }
     ))
-
-
+    
   }, [searchParams]);
 
   return (

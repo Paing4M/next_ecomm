@@ -111,8 +111,6 @@ export const getFilteredProducts = async ({brand, category, query, limit = 15}: 
       $options: "i"
     };
 
-    console.log(filter)
-
 
     const products = await Product.find(filter)
       .limit(limit)

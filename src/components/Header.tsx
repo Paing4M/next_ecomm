@@ -40,7 +40,6 @@ const UserInfoUI = ({handleSignInModal, className}: UserInfoUIProps) => {
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [query, setQuery] = useState('')
 
   const pathname = usePathname()
   const router = useRouter()
@@ -53,16 +52,18 @@ const Header = () => {
   }
 
 
-  useEffect(() => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value
     const params = new URLSearchParams(searchParams)
-    if (query.toString()) {
+    if (query) {
       params.set('query', query)
     } else {
       params.delete('query')
     }
-    router.push('/products?' + params.toString(), {scroll: false})
-  }, [query]);
 
+    router.push('/products?' + params.toString(), {scroll: false})
+
+  }
 
   return (
     <header className='h-[70px] flex items-center border-b border-gray-200'>
@@ -104,8 +105,8 @@ const Header = () => {
           <div
             className='items-center gap-x-1 border border-gray-400 rounded-md overflow-hidden px-2 py-1 flex'>
             <input
-              value={query || ''}
-              onChange={(e) => setQuery(e.target.value)}
+              defaultValue={searchParams.get('query') || ''}
+              onChange={handleSearch}
               type="text" placeholder='What are you looking for?'
               className='border-none outline-none w-full h-full'/>
 
