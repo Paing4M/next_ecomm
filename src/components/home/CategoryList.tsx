@@ -109,7 +109,7 @@ const CategoryList = ({categories}: { categories: CategoryHomeInterface[] }) => 
         <Slider {...settings} className='relative'>
           {categories.map((category) => (
             <div key={category._id} className='min-w-[100px] h-fit py-3 text-wrap px-2'>
-              <Link href={encodeURI('/products/search?category=' + category.slug)}
+              <Link href={encodeURI('/products?category=' + category.slug)}
                     className='p-2 border rounded hover:bg-redBackground hover:text-white w-full block text-center'>
                 {category.name}
               </Link>
