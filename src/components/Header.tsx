@@ -61,7 +61,7 @@ const Header = () => {
       params.delete('query')
     }
     router.push('/products?' + params.toString(), {scroll: false})
-  }, [searchParams, query]);
+  }, [query]);
 
 
   return (
