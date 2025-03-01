@@ -7,7 +7,6 @@ import {useClerk, UserButton, useUser} from "@clerk/nextjs";
 import React, {useEffect, useState} from "react";
 import {CloseIcon} from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import useDebounce from "@/hooks/useDebounce";
 
 
 interface UserInfoUIProps {
@@ -111,7 +110,7 @@ const Header = () => {
               className='border-none outline-none w-full h-full'/>
 
             <SearchIcon className='text-gray-800'/>
-          
+
           </div>
 
           {/* cart */}
