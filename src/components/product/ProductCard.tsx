@@ -9,7 +9,7 @@ const ProductCard = ({product, widthPercent}: { product: ProductShemaI, widthPer
       width: widthPercent || '100%',
     }} className={`h-auto rounded p-4 group border shadow`}>
       <Link href={`/products/${product.slug}`} className='block'>
-        <Image className='h-auto sm:h-[240px] object-fit' src={getImageUrl(product.images[0])}
+        <Image className='h-[350px] w-full sm:h-[200px] lg:h-[240px] object-fit' src={getImageUrl(product.images[0])}
                width={500}
                height={300}
                alt={`${product.name}-image`}/>

@@ -49,7 +49,6 @@ const Header = () => {
     openSignIn()
   }
 
-
   return (
     <header className='h-[70px] flex items-center border-b border-gray-200'>
       <div className='flex items-center justify-between w-full h-full relative'>
@@ -72,8 +71,8 @@ const Header = () => {
                     className={`block px-2 font-semibold ${pathname == '/' ? 'underline decoration-redBackground decoration-2 ' : ''}`}>Home</Link>
             </li>
             <li>
-              <Link href={'/shop'}
-                    className={`block px-2 font-semibold ${pathname.includes('shop') ? 'underline decoration-redBackground decoration-2 ' : ''}`}>Shop</Link>
+              <Link href={'/products'}
+                    className={`block px-2 font-semibold ${pathname.includes('products') ? 'underline decoration-redBackground decoration-2 ' : ''}`}>Shop</Link>
             </li>
             <li>
               <Link href={'/about'}
@@ -89,8 +88,10 @@ const Header = () => {
           {/* search */}
           <div
             className='items-center gap-x-1 border border-gray-400 rounded-md overflow-hidden px-2 py-1 flex'>
-            <input type="text" placeholder='What are you looking for?'
-                   className='border-none outline-none w-full h-full'/>
+            <input
+
+              type="text" placeholder='What are you looking for?'
+              className='border-none outline-none w-full h-full'/>
             <SearchIcon className='text-gray-800'/>
           </div>
 
@@ -101,7 +102,7 @@ const Header = () => {
             </Link>
 
             <span
-              className='absolute rounded-full w-full h-full flex items-center justify-center text-sm bg-yellow-300 font-bold top-[-15px] right-[-13px]'>10</span>
+              className='absolute rounded-full w-full h-full flex items-center justify-center text-sm bg-gray-800 text-white font-bold top-[-15px] right-[-13px]'>10</span>
           </div>
 
 
@@ -139,21 +140,21 @@ const Header = () => {
 
             <li>
               <div onClick={() => openUserProfile()}
-                   className='text-lg font-bold cursor-pointer underline decoration-2 decoration-redBackground'>Profile
+                   className='text-lg font-bold cursor-pointer decoration-2 decoration-redBackground underline'>Profile
               </div>
 
             </li>
 
             <li>
               <Link href='/' onClick={() => setMenuOpen(false)}
-                    className={`text-lg font-bold ${pathname == '/' ? 'text-red' : ''}`}>
+                    className={`text-lg font-bold ${pathname == '/' ? 'text-redBackground' : ''}`}>
                 Home
               </Link>
             </li>
 
             <li>
-              <Link href={'/shop'} onClick={() => setMenuOpen(false)}
-                    className={`text-lg font-bold ${pathname.includes('/shop') ? 'text-red' : ''}`}>
+              <Link href={'/products'} onClick={() => setMenuOpen(false)}
+                    className={`text-lg font-bold ${pathname.includes('/products') ? 'text-redBackground' : ''}`}>
                 Shop
               </Link>
             </li>
@@ -161,7 +162,7 @@ const Header = () => {
 
             <li>
               <Link href={'/about'} onClick={() => setMenuOpen(false)}
-                    className={`text-lg font-bold ${pathname.includes('/about') ? 'text-red' : ''}`}>
+                    className={`text-lg font-bold ${pathname.includes('/about') ? 'text-redBackground' : ''}`}>
                 About
               </Link>
             </li>
