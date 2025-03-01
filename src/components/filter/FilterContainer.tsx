@@ -4,6 +4,7 @@ import CategoryFilter from "@/components/filter/CategoryFilter";
 import BrandFilter from "@/components/filter/BrandFilter";
 import React, {useEffect, useState} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
+import {generateFilterUrl} from "@/lib/utils";
 
 interface FilterContainerProps {
   categories: CategoryHomeInterface[]
@@ -25,7 +26,7 @@ const FilterContainer = ({categories, brands, className}: FilterContainerProps) 
 
 
   const searchParams = useSearchParams()
-  const params = new URLSearchParams()
+
 
   const handleFilter = (key: keyof FilterI, value: string) => {
     let copy = {...filter};
@@ -34,7 +35,6 @@ const FilterContainer = ({categories, brands, className}: FilterContainerProps) 
       copy[key] = [value];
     } else {
       const currentSectionIdx = copy[key]!.indexOf(value);
-
       if (currentSectionIdx === -1) {
         copy[key].push(value);
       } else {
@@ -44,12 +44,15 @@ const FilterContainer = ({categories, brands, className}: FilterContainerProps) 
 
     setFilter(copy);
 
-
-    Object.entries(copy).forEach(([key, values]) => {
-      if (values) values.forEach(value => params.append(key, value));
-    });
-
-    router.push(`?${params.toString()}`, {scroll: false});
+    const params = new URLSearchParams(searchParams);
+    Object.entries(filter).forEach(([key, values]) => {
+      if (Array.isArray(values) && values.length > 0) {
+        params.set(key, values.join(','));
+      } else {
+        params.delete(key);
+      }
+    })
+    router.push(`/products?${params.toString()}`, {scroll: false});
   };
 
 
@@ -59,8 +62,8 @@ const FilterContainer = ({categories, brands, className}: FilterContainerProps) 
 
 
   useEffect(() => {
-    const categories = searchParams.getAll("category");
-    const brands = searchParams.getAll("brand");
+    const categories = searchParams.get("category")?.split(',') || [];
+    const brands = searchParams.get('brand')?.split(',') || [];
 
     setFilter(prev => (
       {
@@ -82,11 +85,12 @@ const FilterContainer = ({categories, brands, className}: FilterContainerProps) 
 
       <hr/>
 
-      <CategoryFilter selectedCategory={searchParams.getAll('category')!} handleFilter={handleFilter}
+      <CategoryFilter selectedCategory={searchParams.get('category')?.split(',') || []} handleFilter={handleFilter}
                       categories={categories}/>
       <hr/>
 
-      <BrandFilter selectedBrand={searchParams.getAll('brand')!} handleFilter={handleFilter} brands={brands}/>
+      <BrandFilter selectedBrand={searchParams.get('brand')?.split(',') || []} handleFilter={handleFilter}
+                   brands={brands}/>
       <hr/>
     </div>
 

@@ -27,10 +27,12 @@ const Container = ({categories, brands, products}: ContainerProps) => {
         <div className=' w-full'>
           <div className='flex items-center justify-between'>
 
-            {products && products.length > 0 && (
-              <p className='text-sm text-gray-600'>showing ({products.length})
-                result{products.length === 1 ? '' : 's'}</p>
-            )}
+            <div>
+              {products && products.length > 0 && (
+                <p className='text-sm text-gray-600'>showing ({products.length})
+                  result{products.length === 1 ? '' : 's'}</p>
+              )}
+            </div>
 
 
             <div className='flex items-center gap-x-3 relative'>

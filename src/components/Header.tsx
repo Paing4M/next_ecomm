@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import {MenuIcon, SearchIcon, ShoppingCartIcon, UserIcon} from "lucide-react";
 import {useClerk, UserButton, useUser} from "@clerk/nextjs";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {CloseIcon} from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
-import {usePathname, useRouter} from "next/navigation";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
 
 
 interface UserInfoUIProps {
@@ -40,14 +40,35 @@ const UserInfoUI = ({handleSignInModal, className}: UserInfoUIProps) => {
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [query, setQuery] = useState<string>('');
+
 
   const pathname = usePathname()
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const {user} = useUser()
   const {openSignIn, openUserProfile} = useClerk()
 
   const handleSignInModal = () => {
     openSignIn()
   }
+
+
+  const searchSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+
+    const params = new URLSearchParams(searchParams)
+    if (query.toString()) {
+      params.set('query', query)
+    } else {
+      params.delete('query')
+    }
+    router.push('/products?' + params.toString(), {scroll: false})
+  }
+
+  useEffect(() => {
+    setQuery(searchParams.get('query') || '')
+  }, [searchParams]);
 
   return (
     <header className='h-[70px] flex items-center border-b border-gray-200'>
@@ -86,14 +107,17 @@ const Header = () => {
 
         <div className='hidden md:flex items-center gap-x-6 pr-2'>
           {/* search */}
-          <div
-            className='items-center gap-x-1 border border-gray-400 rounded-md overflow-hidden px-2 py-1 flex'>
+          <form onSubmit={searchSubmit}
+                className='items-center gap-x-1 border border-gray-400 rounded-md overflow-hidden px-2 py-1 flex'>
             <input
-
+              value={query || ''}
+              onChange={(e) => setQuery(e.target.value)}
               type="text" placeholder='What are you looking for?'
               className='border-none outline-none w-full h-full'/>
-            <SearchIcon className='text-gray-800'/>
-          </div>
+            <button type={'submit'}>
+              <SearchIcon className='text-gray-800'/>
+            </button>
+          </form>
 
           {/* cart */}
           <div className='relative'>

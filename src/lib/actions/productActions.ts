@@ -83,10 +83,11 @@ export const getAllProductBrands = async (limit: number = 10) => {
 interface GetFilteredProductsI {
   brand?: string[] | undefined,
   category?: string[] | undefined,
-  limit?: number
+  query?: string | undefined
+  limit?: number,
 }
 
-export const getFilteredProducts = async ({brand, category, limit = 15}: GetFilteredProductsI) => {
+export const getFilteredProducts = async ({brand, category, query, limit = 15}: GetFilteredProductsI) => {
 
   try {
     await connectDb()
@@ -104,6 +105,14 @@ export const getFilteredProducts = async ({brand, category, limit = 15}: GetFilt
     }
 
     if (brand) filter.brand = {$in: Array.isArray(brand) ? brand : [brand]}
+
+    if (query) filter.name = {
+      $regex: query,
+      $options: "i"
+    };
+
+    console.log(filter)
+
 
     const products = await Product.find(filter)
       .limit(limit)
