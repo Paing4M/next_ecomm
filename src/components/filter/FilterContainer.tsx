@@ -3,7 +3,7 @@
 import CategoryFilter from "@/components/filter/CategoryFilter";
 import BrandFilter from "@/components/filter/BrandFilter";
 import React, {useEffect, useState} from "react";
-import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 
 interface FilterContainerProps {
   categories: CategoryHomeInterface[]
@@ -49,7 +49,7 @@ const FilterContainer = ({categories, brands, className}: FilterContainerProps) 
       if (values) values.forEach(value => params.append(key, value));
     });
 
-    router.push(encodeURI(`?${params.toString()}`), {scroll: false});
+    router.push(`?${params.toString()}`, {scroll: false});
   };
 
 
@@ -61,8 +61,6 @@ const FilterContainer = ({categories, brands, className}: FilterContainerProps) 
   useEffect(() => {
     const categories = searchParams.getAll("category");
     const brands = searchParams.getAll("brand");
-    const priceFrom = searchParams.get("priceFrom");
-    const priceTo = searchParams.get("priceTo");
 
     setFilter(prev => (
       {
@@ -76,7 +74,6 @@ const FilterContainer = ({categories, brands, className}: FilterContainerProps) 
   }, [searchParams]);
 
   return (
-
     <div
       className={`min-w-[230px] border rounded-md p-2 space-y-4 h-fit max-h-[calc(100vh-25px)] overflow-hidden overflow-y-scroll ${className}`}>
 
@@ -90,10 +87,7 @@ const FilterContainer = ({categories, brands, className}: FilterContainerProps) 
       <hr/>
 
       <BrandFilter selectedBrand={searchParams.getAll('brand')!} handleFilter={handleFilter} brands={brands}/>
-
       <hr/>
-
-
     </div>
 
   )
