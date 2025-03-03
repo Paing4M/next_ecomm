@@ -83,7 +83,7 @@ const Header = () => {
         <nav className='hidden md:block'>
           <ul className='flex items-center gap-x-4'>
             <li>
-              <Link href='/'
+              <Link href='/public'
                     className={`block px-2 font-semibold ${pathname == '/' ? 'underline decoration-redBackground decoration-2 ' : ''}`}>Home</Link>
             </li>
             <li>
@@ -165,7 +165,7 @@ const Header = () => {
             </li>
 
             <li>
-              <Link href='/' onClick={() => setMenuOpen(false)}
+              <Link href='/public' onClick={() => setMenuOpen(false)}
                     className={`text-lg font-bold ${pathname == '/' ? 'text-redBackground' : ''}`}>
                 Home
               </Link>

@@ -17,7 +17,10 @@
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-select": "^5.10.0",
+    "react-tag-input": "^6.10.6",
     "slick-carousel": "^1.8.1",
+    "tailwind-scrollbar-hide": "^2.0.0",
     "zustand": "^5.0.3"
   },
   "devDependencies": {

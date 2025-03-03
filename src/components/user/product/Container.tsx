@@ -1,30 +1,103 @@
 'use client'
 
-import FilterContainer from "@/components/filter/FilterContainer";
-import ProductList from "@/components/product/ProductList";
+import FilterContainer from "@/components/user/filter/FilterContainer";
+import ProductList from "@/components/user/product/ProductList";
 import {ProductShemaI} from "@/lib/db/models/productModel";
-import {FilterIcon, LucideSortDesc, XIcon} from "lucide-react";
-import {useState} from "react";
+import {FilterIcon, XIcon} from "lucide-react";
+import {useEffect, useState} from "react";
+import TagFilter from "@/components/user/filter/TagFilter";
+import {useRouter, useSearchParams} from "next/navigation";
 
 interface ContainerProps {
   categories?: CategoryHomeInterface[];
   brands?: string[];
   products?: ProductShemaI[];
+  tags?: string[];
 }
 
-const Container = ({categories, brands, products}: ContainerProps) => {
+export interface FilterI {
+  category?: string[]
+  brand?: string[]
+  tag?: string[]
+}
+
+
+const Container = ({categories, brands, products, tags}: ContainerProps) => {
 
   const [isOpen, setIsOpen] = useState(false)
+  const [filter, setFilter] = useState<FilterI>({})
 
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const handleFilter = (key: keyof FilterI, value: string) => {
+    let copy = {...filter};
+    console.log(key, value)
+    if (!copy[key]) {
+      copy[key] = [value];
+    } else {
+      const currentSectionIdx = copy[key]!.indexOf(value);
+      if (currentSectionIdx === -1) {
+        copy[key].push(value);
+      } else {
+        copy[key].splice(currentSectionIdx, 1);
+      }
+    }
+    setFilter(copy);
+  };
+
+
+  const handleResetFilter = () => {
+    router.push('/products', {scroll: false});
+  }
+
+  console.log(filter)
+
+
+  useEffect(() => {
+    const categories = searchParams.get("category")?.split(',') || [];
+    const brands = searchParams.get('brand')?.split(',') || [];
+    const tags = searchParams.get('tag')?.split(',') || [];
+
+    setFilter(prev => (
+      {
+        ...prev,
+        brand: brands,
+        category: categories,
+        tag: tags
+      }
+    ))
+
+  }, [searchParams]);
+
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+    Object.entries(filter).forEach(([key, values]) => {
+      if (Array.isArray(values) && values.length > 0) {
+        params.set(key, values.join(","));
+      } else {
+        params.delete(key);
+      }
+    });
+
+    router.push(`/products?${params.toString()}`, {scroll: false});
+  }, [filter]);
 
   return (
     <>
       <div className='flex gap-x-6'>
-        <FilterContainer className={`hidden md:block`}
-                         categories={categories!}
-                         brands={brands!}/>
+        <FilterContainer
+          className={`hidden md:block`}
+          handleResetFilter={handleResetFilter}
+          handleFilter={handleFilter}
+          categories={categories!}
+          brands={brands!}
+          filter={filter}
+        />
 
-        <div className=' w-full'>
+
+        <div className=' w-full overflow-x-hidden'>
           <div className='flex items-center justify-between'>
 
             <div>
@@ -45,6 +118,8 @@ const Container = ({categories, brands, products}: ContainerProps) => {
 
           <hr className='mb-4 mt-3'/>
 
+          <TagFilter selectedTags={filter.tag || []} tags={tags!} handleFilter={handleFilter}/>
+
           <ProductList products={products!}/>
 
         </div>
@@ -56,8 +131,13 @@ const Container = ({categories, brands, products}: ContainerProps) => {
 
           <XIcon onClick={() => setIsOpen(false)} className='absolute cursor-pointer top-3 right-3'/>
 
-          <FilterContainer className={`border-none h-full shadow-none bg-white mt-[4rem]`} categories={categories!}
-                           brands={brands!}/>
+          <FilterContainer
+            filter={filter}
+            className={`border-none h-full shadow-none bg-white mt-[4rem]`}
+            handleResetFilter={handleResetFilter}
+            handleFilter={handleFilter}
+            categories={categories!}
+            brands={brands!}/>
         </div>
 
       )}

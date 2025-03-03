@@ -1,15 +1,14 @@
 'use client'
 
 import {ProductShemaI} from "@/lib/db/models/productModel";
-import ProductCard from "@/components/product/ProductCard";
-import {FilterIcon} from "lucide-react";
+import ProductCard from "@/components/user/product/ProductCard";
 
 interface ProductListProps {
   products: ProductShemaI[]
 }
 
 const ProductList = ({products}: ProductListProps) => {
-  
+
 
   if (products.length === 0) return <p className='text-redBackground text-center w-full p-2'>No product found.</p>
 

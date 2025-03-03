@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {FilterI} from "@/components/filter/FilterContainer";
+import {FilterI} from "@/components/user/product/Container";
 
 interface BrandFilterProps {
   brands: string[];

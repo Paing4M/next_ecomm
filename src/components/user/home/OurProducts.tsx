@@ -1,7 +1,7 @@
-import Title from "@/components/Title";
+import Title from "@/components/user/Title";
 import React from "react";
 import {ProductShemaI} from "@/lib/db/models/productModel";
-import ProductCard from "@/components/product/ProductCard";
+import ProductCard from "@/components/user/product/ProductCard";
 
 const OurProducts = ({products}: { products: ProductShemaI[] }) => {
 

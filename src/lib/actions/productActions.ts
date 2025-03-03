@@ -81,13 +81,14 @@ export const getAllProductBrands = async (limit: number = 10) => {
 
 
 interface GetFilteredProductsI {
-  brand?: string[] | undefined,
-  category?: string[] | undefined,
+  brand?: string[] | undefined
+  category?: string[] | undefined
+  tag?: string[] | undefined
   query?: string | undefined
-  limit?: number,
+  limit?: number
 }
 
-export const getFilteredProducts = async ({brand, category, query, limit = 15}: GetFilteredProductsI) => {
+export const getFilteredProducts = async ({tag, brand, category, query, limit = 15}: GetFilteredProductsI) => {
 
   try {
     await connectDb()
@@ -106,6 +107,8 @@ export const getFilteredProducts = async ({brand, category, query, limit = 15}: 
 
     if (brand) filter.brand = {$in: Array.isArray(brand) ? brand : [brand]}
 
+    if (tag) filter.tags = {$in: Array.isArray(tag) ? tag : [tag]}
+
     if (query) filter.name = {
       $regex: query,
       $options: "i"
@@ -123,4 +126,16 @@ export const getFilteredProducts = async ({brand, category, query, limit = 15}: 
     throw new Error('Error getFilteredProducts .')
   }
 
+}
+
+export const getProductTags = async () => {
+  try {
+    await connectDb()
+    const tags = await Product.find({}).distinct('tags')
+
+    return JSON.parse(JSON.stringify(tags)) as string[]
+  } catch (e) {
+    console.log(e)
+    throw new Error('Error in getProductTags.')
+  }
 }

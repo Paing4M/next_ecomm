@@ -1,13 +1,13 @@
 'use client'
 
-import Title from "@/components/Title";
+import Title from "@/components/user/Title";
 import Slider from "react-slick";
 import Link from "next/link";
 import React from "react";
 import {ArrowLeft, ArrowRight} from "lucide-react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {SliderArrow} from "@/components/home/ProductSlider";
+import {SliderArrow} from "@/components/user/home/ProductSlider";
 
 
 interface ArrowProps {
@@ -16,7 +16,7 @@ interface ArrowProps {
   onClick?: any
 }
 
-const Prev = ({onClick}: { onClick?: any }) => {
+export const Prev = ({onClick}: { onClick?: any }) => {
 
   return (
     <SliderArrow onClick={onClick} className=' hidden sm:block top-[-2rem] right-[2.5rem]'>
@@ -25,7 +25,7 @@ const Prev = ({onClick}: { onClick?: any }) => {
   )
 }
 
-const Next = ({onClick}: { onClick?: any }) => {
+export const Next = ({onClick}: { onClick?: any }) => {
 
   return (
     <SliderArrow onClick={onClick} className='hidden sm:block right-0 top-[-2rem]'>
@@ -42,6 +42,7 @@ const CategoryList = ({categories}: { categories: CategoryHomeInterface[] }) => 
     speed: 500,
     slidesToShow: 8,
     slidesToScroll: 1,
+    variableWidth: true,
     prevArrow: <Prev/>,
     nextArrow: <Next/>,
     responsive: [
@@ -108,9 +109,9 @@ const CategoryList = ({categories}: { categories: CategoryHomeInterface[] }) => 
       <div className='mb-4'>
         <Slider {...settings} className='relative'>
           {categories.map((category) => (
-            <div key={category._id} className='min-w-[100px] h-fit py-3 text-wrap px-2'>
+            <div key={category._id} className='py-3 text-wrap px-2'>
               <Link href={encodeURI('/products?category=' + category.slug)}
-                    className='p-2 border rounded hover:bg-redBackground hover:text-white w-full block text-center'>
+                    className='py-2 px-4 border rounded hover:bg-redBackground hover:text-white w-full block text-center'>
                 {category.name}
               </Link>
             </div>

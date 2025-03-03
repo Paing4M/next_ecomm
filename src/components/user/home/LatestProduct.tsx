@@ -1,7 +1,7 @@
 import {ProductShemaI} from "@/lib/db/models/productModel";
-import Title from "@/components/Title";
+import Title from "@/components/user/Title";
 import React from "react";
-import LatestProductCard from "@/components/product/LatestProductCard";
+import LatestProductCard from "@/components/user/product/LatestProductCard";
 
 const LatestProduct = ({products}: { products: ProductShemaI[] }) => {
 

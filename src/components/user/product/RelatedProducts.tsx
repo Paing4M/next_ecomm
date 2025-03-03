@@ -1,6 +1,6 @@
 import {ProductShemaI} from "@/lib/db/models/productModel";
-import Title from "@/components/Title";
-import ProductCard from "@/components/product/ProductCard";
+import Title from "@/components/user/Title";
+import ProductCard from "@/components/user/product/ProductCard";
 
 const RelatedProducts = ({products}: { products: ProductShemaI[] }) => {
 

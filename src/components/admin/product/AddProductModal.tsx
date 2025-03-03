@@ -6,7 +6,7 @@ import {Tag, WithContext as ReactTags, SEPARATORS} from "react-tag-input";
 import {useState} from "react";
 
 
-const ProductModal = ({open, closeModal}: Partial<ModalProps>) => {
+const AddProductModal = ({open, closeModal}: Partial<ModalProps>) => {
 
   const [tags, setTags] = useState<Tag[]>([])
 
@@ -109,4 +109,4 @@ const ProductModal = ({open, closeModal}: Partial<ModalProps>) => {
   )
 }
 
-export default ProductModal
+export default AddProductModal

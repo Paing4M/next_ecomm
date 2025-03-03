@@ -1,7 +1,7 @@
 'use client'
 
-import {FilterI} from "@/components/filter/FilterContainer";
-import {useEffect} from "react";
+
+import {FilterI} from "@/components/user/product/Container";
 
 interface CategoryFilterProps {
   categories: CategoryHomeInterface[]
@@ -10,7 +10,7 @@ interface CategoryFilterProps {
 }
 
 const CategoryFilter = ({categories, handleFilter, selectedCategory}: CategoryFilterProps) => {
-  
+
   if (categories.length === 0) return null
 
 

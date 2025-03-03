@@ -9,8 +9,8 @@ import {getImageUrl} from "@/lib/utils";
 import React from "react";
 import {ArrowLeft, ArrowRight} from "lucide-react";
 import Link from "next/link";
-import Title from "@/components/Title";
-import ProductCard from "@/components/product/ProductCard";
+import Title from "@/components/user/Title";
+import ProductCard from "@/components/user/product/ProductCard";
 
 
 export interface SliderArrowProps {

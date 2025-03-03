@@ -1,15 +1,15 @@
 import {getLatestSale} from "@/lib/actions/saleActions";
 import {SaleInterface} from "@/lib/db/models/saleModel";
-import SaleBanner from "@/components/home/SaleBanner";
-import ProductSlider from "@/components/home/ProductSlider";
+import SaleBanner from "@/components/user/home/SaleBanner";
+import ProductSlider from "@/components/user/home/ProductSlider";
 import {getLatestProducts, getLimitProducts, getPopularProducts} from "@/lib/actions/productActions";
 import Link from "next/link";
 import {getAllCategories} from "@/lib/actions/categoryActions";
 import {ProductShemaI} from "@/lib/db/models/productModel";
-import CategoryList from "@/components/home/CategoryList";
-import OurProducts from "@/components/home/OurProducts";
-import ProductsLink from "@/components/product/ProductsLink";
-import LatestProduct from "@/components/home/LatestProduct";
+import CategoryList from "@/components/user/home/CategoryList";
+import OurProducts from "@/components/user/home/OurProducts";
+import ProductsLink from "@/components/user/product/ProductsLink";
+import LatestProduct from "@/components/user/home/LatestProduct";
 import type {Metadata} from "next";
 
 
