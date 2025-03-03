@@ -7,16 +7,17 @@ const ProductCard = ({product, widthPercent}: { product: ProductShemaI, widthPer
   return (
     <div style={{
       width: widthPercent || '100%',
-    }} className={`h-auto rounded p-4 group border shadow`}>
-      <Link href={`/products/${product.slug}`} className='block'>
-        <Image className='h-[350px] w-full sm:h-[200px] lg:h-[240px] object-fit' src={getImageUrl(product.images[0])}
+    }} className={`rounded p-4 group border shadow`}>
+      <Link href={`/src/app/(user)/products/${product.slug}`} className='block'>
+        <Image className='w-full h-full sm:h-[260px] md:[200px] lg:h-[240px] object-fit'
+               src={getImageUrl(product.images[0])}
                width={500}
                height={300}
                alt={`${product.name}-image`}/>
       </Link>
 
       <div className='mt-2 overflow-hidden'>
-        <Link href={`/products/${product.slug}`}>
+        <Link href={`/src/app/(user)/products/${product.slug}`}>
           <h4 className='font-semibold truncate'>{product.name}</h4>
         </Link>
         <p>$ {product.price.toFixed(2)}</p>
