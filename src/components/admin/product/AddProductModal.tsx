@@ -10,7 +10,6 @@ const AddProductModal = ({open, closeModal}: Partial<ModalProps>) => {
 
   const [tags, setTags] = useState<Tag[]>([])
 
-
   const handleDelete = (i: number) => {
     setTags(tags.filter((tag, index) => index !== i));
   };
@@ -69,7 +68,7 @@ const AddProductModal = ({open, closeModal}: Partial<ModalProps>) => {
             <label htmlFor="tags" className='inline-block capitalize'>Tags</label>
             <ReactTags
               id='tags'
-              maxTags={6}
+              maxTags={4}
               tags={tags}
               separators={[SEPARATORS.ENTER, SEPARATORS.COMMA]}
               handleDelete={handleDelete}
@@ -81,25 +80,58 @@ const AddProductModal = ({open, closeModal}: Partial<ModalProps>) => {
           </div>
 
 
-          {/* category */}
-          <div>
-            <div className='flex items-center justify-between gap-x-2'>
+          <div className='flex items-center justify-between gap-x-2'>
 
-              <div className='w-full'>
-                <label htmlFor="category" className='inline-block capitalize'>Category</label>
-                <select id='category' className='input !py-[10px]'>
-                  <option value="" className='text-gray-400 '>Select</option>
-                  <option value="1">apple</option>
-                </select>
-              </div>
-
-
-              <div className='w-full'>
-                <label htmlFor="brand" className='inline-block capitalize'>Brand</label>
-                <input type="text" id='brand'
-                       className='input' placeholder='Type here ...'/>
-              </div>
+            {/* category */}
+            <div className='w-full'>
+              <label htmlFor="category" className='inline-block capitalize'>Category</label>
+              <select id='category' className='input !py-[10px]'>
+                <option value="" className='text-gray-400 '>Select Category</option>
+                <option value="1">apple</option>
+              </select>
             </div>
+
+            {/* brand */}
+            <div className='w-full'>
+              <label htmlFor="brand" className='inline-block capitalize'>Brand</label>
+              <input type="text" id='brand'
+                     className='input' placeholder='Type here ...'/>
+            </div>
+          </div>
+
+
+          <div className='flex items-center justify-between gap-x-2'>
+            {/* price */}
+            <div>
+              <label htmlFor="price" className='inline-block capitalize'>Price</label>
+              <input type="number" id='price'
+                     className='input' placeholder='Type here ...'/>
+            </div>
+
+            {/* count in stock */}
+            <div>
+              <label htmlFor="countInStock" className='inline-block capitalize'>InStock</label>
+              <input type="number" id='countInStock'
+                     className='input' placeholder='Type here ...'/>
+            </div>
+
+          </div>
+
+          {/* desc */}
+          <div>
+            <label htmlFor="description">Description</label>
+            <textarea placeholder='Type here ...' name="description" id="description" cols={40}
+                      className='input'></textarea>
+          </div>
+
+
+          <div className='flex items-center justify-between gap-x-2'>
+            <button
+              onClick={closeModal}
+              className='border px-3 py-1 rounded focus:outline-none hover:bg-redBackground hover:text-white'>Cancel
+            </button>
+
+            <button className='border px-3 py-1 rounded focus:outline-none bg-blue-600 text-white'>Add Product</button>
           </div>
 
         </form>
