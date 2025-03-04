@@ -14,6 +14,9 @@ export default {
         foreground: "var(--foreground)",
         redBackground: "var(--red)",
       },
+      screens: {
+        'xs': '380px'
+      }
     },
   },
   plugins: [scrollbarHide],

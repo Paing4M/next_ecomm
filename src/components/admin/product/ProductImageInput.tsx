@@ -8,9 +8,10 @@ interface ProductImageInputProps {
 const ProductImageInput = ({label = 'upload', id}: ProductImageInputProps) => {
 
   return (
-    <div className='w-[100px] bg-gray-100 rounded p-3 h-[100px]'>
-      <label className='w-full capitalize h-full flex flex-col items-center justify-center text-center text-sm'
-             htmlFor={id}>
+    <div className='bg-gray-100 rounded w-[100px] h-[100px] p-2'>
+      <label
+        className='w-full cursor-pointer capitalize h-full flex flex-col items-center justify-center text-center text-xs'
+        htmlFor={id}>
         <UploadCloudIcon/>
         {label}
         <input id={id} type="file" className='hidden'/>

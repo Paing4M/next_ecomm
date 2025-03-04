@@ -1,9 +1,12 @@
-import AdminHeader from "@/components/admin/AdminHeader";
 import ProductContainer from "@/components/admin/product/ProductContainer";
+import {getAllCategories} from "@/lib/actions/categoryActions";
 
-const ProductPage = () => {
+const ProductPage = async () => {
+  const categories: CategoryHomeInterface[] = await getAllCategories()
+
+
   return (
-    <ProductContainer/>
+    <ProductContainer categories={categories}/>
   )
 }
 

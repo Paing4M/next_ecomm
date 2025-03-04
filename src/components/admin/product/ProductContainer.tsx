@@ -2,9 +2,13 @@
 
 import AdminHeader from "@/components/admin/AdminHeader";
 import {useState} from "react";
-import AddProductModal from "@/components/admin/product/AddProductModal";
+import ProductModal from "@/components/admin/product/ProductModal";
 
-const ProductContainer = () => {
+interface ProductContainerProps {
+  categories: CategoryHomeInterface[];
+}
+
+const ProductContainer = ({categories}: ProductContainerProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const closeModal = () => setIsOpen(false)
@@ -27,7 +31,7 @@ const ProductContainer = () => {
 
 
       {/* product modal */}
-      <AddProductModal open={isOpen} closeModal={closeModal}/>
+      <ProductModal open={isOpen} closeModal={closeModal} categories={categories}/>
     </>
   )
 }
