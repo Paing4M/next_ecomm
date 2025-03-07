@@ -1,9 +1,9 @@
-import {ProductShemaI} from "@/lib/db/models/productModel";
+import {ProductSchemaI} from "@/lib/db/models/productModel";
 import Title from "@/components/user/Title";
 import React from "react";
 import LatestProductCard from "@/components/user/product/LatestProductCard";
 
-const LatestProduct = ({products}: { products: ProductShemaI[] }) => {
+const LatestProduct = ({products}: { products: ProductSchemaI[] }) => {
 
   if (products.length == 0) return null;
 

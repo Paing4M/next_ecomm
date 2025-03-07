@@ -1,25 +1,16 @@
 import mongoose, {Schema, Types} from 'mongoose';
-import {ReviewInterface} from "@/lib/db/models/reviewModel";
+import {ZProductSchemaI} from "@/lib/types";
 
 
-export interface ProductShemaI extends mongoose.Document {
-  _id: string;
-  name: string,
-  slug: string,
-  category: Types.ObjectId,
-  images: string[],
-  brand: string,
-  description: string,
-  price: number,
-  countInStock: number,
-  tags: string[],
-  isPublished: boolean,
-  reviews: ReviewInterface[],
-  createdAt: Date,
-  updatedAt: Date,
+export interface ProductSchemaI extends mongoose.Document, ZProductSchemaI {
+  _id: string
+  tags: string[]
+  isPublished: boolean
+  createdAt: Date
+  updatedAt: Date
 }
 
-const productSchema = new mongoose.Schema<ProductShemaI>({
+const productSchema = new mongoose.Schema<ProductSchemaI>({
   name: {
     type: String,
     required: true,
@@ -71,6 +62,6 @@ const productSchema = new mongoose.Schema<ProductShemaI>({
   ],
 }, {timestamps: true});
 
-const Product = mongoose.models?.Product || mongoose.model<ProductShemaI>('Product', productSchema);
+const Product = mongoose.models?.Product || mongoose.model<ProductSchemaI>('Product', productSchema);
 
 export default Product;

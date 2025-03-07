@@ -83,7 +83,7 @@ const Header = () => {
         <nav className='hidden md:block'>
           <ul className='flex items-center gap-x-4'>
             <li>
-              <Link href='/public'
+              <Link href='/'
                     className={`block px-2 font-semibold ${pathname == '/' ? 'underline decoration-redBackground decoration-2 ' : ''}`}>Home</Link>
             </li>
             <li>

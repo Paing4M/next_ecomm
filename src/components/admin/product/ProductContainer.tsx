@@ -18,10 +18,16 @@ const ProductContainer = ({categories}: ProductContainerProps) => {
     <>
       <AdminHeader title={'products'}/>
       <div className='mt-[1rem] px-4'>
-        <div className='py-2 px-3 flex justify-end'>
+        <div className='py-2 px-3 flex justify-between items-center'>
+
+          <input className='py-2 px-4 focus:ring-2 outline-none focus:ring-blue-500 broder rounded w-full max-w-[500px]'
+                 type="text"
+                 placeholder='Search ...'/>
+
           <button onClick={() => setIsOpen(true)}
                   className='bg-blue-500 rounded py-2 px-4 text-white text-center'>Create Product
           </button>
+
         </div>
 
         <div className='mt-3'>

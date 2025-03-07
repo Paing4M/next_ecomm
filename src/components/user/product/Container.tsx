@@ -1,8 +1,8 @@
 'use client'
 
 import FilterContainer from "@/components/user/filter/FilterContainer";
-import ProductList from "@/components/user/product/ProductList";
-import {ProductShemaI} from "@/lib/db/models/productModel";
+import UserProductList from "@/components/user/product/UserProductList";
+import {ProductSchemaI} from "@/lib/db/models/productModel";
 import {FilterIcon, XIcon} from "lucide-react";
 import {useEffect, useState} from "react";
 import TagFilter from "@/components/user/filter/TagFilter";
@@ -11,7 +11,7 @@ import {useRouter, useSearchParams} from "next/navigation";
 interface ContainerProps {
   categories?: CategoryHomeInterface[];
   brands?: string[];
-  products?: ProductShemaI[];
+  products?: ProductSchemaI[];
   tags?: string[];
 }
 
@@ -120,7 +120,7 @@ const Container = ({categories, brands, products, tags}: ContainerProps) => {
 
           <TagFilter selectedTags={filter.tag || []} tags={tags!} handleFilter={handleFilter}/>
 
-          <ProductList products={products!}/>
+          <UserProductList products={products!}/>
 
         </div>
       </div>

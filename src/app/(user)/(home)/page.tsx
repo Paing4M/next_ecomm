@@ -5,7 +5,7 @@ import ProductSlider from "@/components/user/home/ProductSlider";
 import {getLatestProducts, getLimitProducts, getPopularProducts} from "@/lib/actions/productActions";
 import Link from "next/link";
 import {getAllCategories} from "@/lib/actions/categoryActions";
-import {ProductShemaI} from "@/lib/db/models/productModel";
+import {ProductSchemaI} from "@/lib/db/models/productModel";
 import CategoryList from "@/components/user/home/CategoryList";
 import OurProducts from "@/components/user/home/OurProducts";
 import ProductsLink from "@/components/user/product/ProductsLink";
@@ -19,10 +19,10 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const sale: SaleInterface | null = await getLatestSale()
-  const popularProducts: ProductShemaI[] = await getPopularProducts() || []
+  const popularProducts: ProductSchemaI[] = await getPopularProducts() || []
   const allCategories: CategoryHomeInterface[] = await getAllCategories() || []
-  const limitProducts: ProductShemaI[] = await getLimitProducts() || []
-  const latestProducts: ProductShemaI[] = await getLatestProducts() || []
+  const limitProducts: ProductSchemaI[] = await getLimitProducts() || []
+  const latestProducts: ProductSchemaI[] = await getLatestProducts() || []
 
 
   return (

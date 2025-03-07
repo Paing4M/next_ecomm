@@ -1,15 +1,17 @@
-import {ProductShemaI} from "@/lib/db/models/productModel";
 import Link from "next/link";
 import Image from "next/image";
 import {getImageUrl} from "@/lib/utils";
+import {ProductSchemaI} from "@/lib/db/models/productModel";
 
-const ProductCard = ({product, widthPercent}: { product: ProductShemaI, widthPercent?: string }) => {
+interface ProductCardBodyProps {
+  product: ProductSchemaI
+}
+
+const ProductCardBody = ({product}: ProductCardBodyProps) => {
   return (
-    <div style={{
-      width: widthPercent || '100%',
-    }} className={`rounded p-4 group border shadow`}>
+    <div>
       <Link href={`/products/${product.slug}`} className='block'>
-        <Image className='w-full h-full sm:h-[260px] md:[200px] lg:h-[240px] object-fit'
+        <Image className='w-full h-full sm:h-[260px] md:[200px] lg:h-[240px] xl:h-[220px] object-fit'
                src={getImageUrl(product.images[0])}
                width={500}
                height={300}
@@ -23,11 +25,9 @@ const ProductCard = ({product, widthPercent}: { product: ProductShemaI, widthPer
         <p>$ {product.price.toFixed(2)}</p>
 
         {/*  Product Rating  */}
-
-        <button className='w-full bg-black text-center mt-4 py-2 text-white rounded'>Add to cart</button>
       </div>
     </div>
   )
 }
 
-export default ProductCard
+export default ProductCardBody

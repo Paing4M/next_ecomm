@@ -1,12 +1,12 @@
 'use client'
 
-import {ProductShemaI} from "@/lib/db/models/productModel";
+import {ProductSchemaI} from "@/lib/db/models/productModel";
 import Image from "next/image";
 import {getImageUrl} from "@/lib/utils";
 import {useEffect, useState} from "react";
 import {Minus, Plus} from "lucide-react";
 
-const ProductDetail = ({product}: { product: ProductShemaI }) => {
+const ProductDetail = ({product}: { product: ProductSchemaI }) => {
   const [idx, setIdx] = useState(0);
   const [img, setImg] = useState('');
   const [quantity, setQuantity] = useState(1)
@@ -33,8 +33,8 @@ const ProductDetail = ({product}: { product: ProductShemaI }) => {
 
   return (
     <div className='flex gap-x-6 mt-4 flex-col md:flex-row'>
-      <div className='flex gap-x-6 gap-y-4 flex-col-reverse md:flex-row mx-auto'>
-        <div className='flex flex-row md:flex-col gap-4  flex-wrap md:flex-nowrap'>
+      <div className='min-w-[50%] flex gap-x-6 gap-y-4 flex-col-reverse md:flex-row mx-auto'>
+        <div className='flex w-fit flex-row md:flex-col gap-4  flex-wrap md:flex-nowrap'>
           {/* images */}
           {product.images?.map((img, idx) => (
             <div onClick={() => handleImageIdx(idx)} onMouseEnter={() => handleImageIdx(idx)}
@@ -49,7 +49,7 @@ const ProductDetail = ({product}: { product: ProductShemaI }) => {
 
         {/* preview image */}
         <div
-          className='w-full  max-w-[500px] h-[400px] md:h-[430px] lg:h-[510px] border p-4 shadow-lg rounded-lg'>
+          className='w-full max-w-[500px] h-[400px] md:h-[430px] lg:h-[510px] border p-4 shadow-lg rounded-lg'>
           <Image src={getImageUrl(img)} alt={`main-img`} width={100} height={100}
                  className='object-contain w-full h-full'/>
         </div>

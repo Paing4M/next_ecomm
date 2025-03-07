@@ -3,14 +3,14 @@
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {ProductShemaI} from "@/lib/db/models/productModel";
+import {ProductSchemaI} from "@/lib/db/models/productModel";
 import Image from "next/image";
 import {getImageUrl} from "@/lib/utils";
 import React from "react";
 import {ArrowLeft, ArrowRight} from "lucide-react";
 import Link from "next/link";
 import Title from "@/components/user/Title";
-import ProductCard from "@/components/user/product/ProductCard";
+import ProductCard from "@/components/card/ProductCard";
 
 
 export interface SliderArrowProps {
@@ -50,7 +50,7 @@ const Next = ({onClick}: { onClick?: any }) => {
 
 
 interface ProductSliderProps {
-  products: ProductShemaI[];
+  products: ProductSchemaI[];
   title: string;
   productTitle: string;
 }

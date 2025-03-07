@@ -1,8 +1,8 @@
-import {ProductShemaI} from "@/lib/db/models/productModel";
+import {ProductSchemaI} from "@/lib/db/models/productModel";
 import Title from "@/components/user/Title";
-import ProductCard from "@/components/user/product/ProductCard";
+import ProductCard from "@/components/card/ProductCard";
 
-const RelatedProducts = ({products}: { products: ProductShemaI[] }) => {
+const RelatedProducts = ({products}: { products: ProductSchemaI[] }) => {
 
   if (products.length === 0) return null;
 

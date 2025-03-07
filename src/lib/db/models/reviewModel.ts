@@ -1,12 +1,9 @@
 import {model, models, Schema, Types} from "mongoose";
+import {ZReviewSchemaI} from "@/lib/types";
 
 
-export interface ReviewInterface extends Document {
+export interface ReviewInterface extends Document, ZReviewSchemaI {
   _id: string;
-  name: string;
-  rating: number;
-  comment: string;
-  user: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }

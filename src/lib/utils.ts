@@ -1,15 +1,14 @@
+import {ZodError} from "zod";
+
 export const getImageUrl = (image: string) => {
   return `/images/products/${image}`;
 }
 
 
-export const generateFilterUrl = (
-  searchParams: any,
-  key: string,
-  value: string
-) => {
-  console.log(searchParams, key, value)
-  let params = new URLSearchParams(searchParams.toString());
-  return params.toString();
-
+export const convertZodError = (error: ZodError) => {
+  return error.issues.reduce((acc: { [key: string]: string }, issue) => {
+    acc[issue.path[0]] = issue.message
+    return acc
+  }, {})
 }
+

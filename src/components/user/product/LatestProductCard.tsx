@@ -1,9 +1,9 @@
-import {ProductShemaI} from "@/lib/db/models/productModel";
+import {ProductSchemaI} from "@/lib/db/models/productModel";
 import Image from "next/image";
 import {getImageUrl} from "@/lib/utils";
 import Link from "next/link";
 
-const LatestProductCard = ({product, className}: { product: ProductShemaI, className?: string }) => {
+const LatestProductCard = ({product, className}: { product: ProductSchemaI, className?: string }) => {
   return (
     <div className={`relative w-full group  rounded overflow-hidden ${className}`}>
       <Image className='object-cover group-hover:scale-105 duration-150 ease-linear w-full h-full' fill
