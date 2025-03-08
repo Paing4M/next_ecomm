@@ -33,15 +33,15 @@ const ProductDetail = ({product}: { product: ProductSchemaI }) => {
 
   return (
     <div className='flex gap-x-6 mt-4 flex-col md:flex-row'>
-      <div className='min-w-[50%] flex gap-x-6 gap-y-4 flex-col-reverse md:flex-row mx-auto'>
+      <div className='flex-1 flex gap-x-6 gap-y-4 flex-col-reverse md:flex-row mx-auto'>
         <div className='flex w-fit flex-row md:flex-col gap-4  flex-wrap md:flex-nowrap'>
           {/* images */}
           {product.images?.map((img, idx) => (
             <div onClick={() => handleImageIdx(idx)} onMouseEnter={() => handleImageIdx(idx)}
                  key={product._id + '-' + img}
-                 className='cursor-pointer w-fit p-4 object-contain  relative border rounded-md'>
-              <Image width={80} height={80} className='object-fit' src={getImageUrl(img)}
-                     alt={'img-' + product.name}/>
+                 className='cursor-pointer w-fit p-4  relative border rounded-md'>
+              <Image width={80} height={80} className='object-contain' src={getImageUrl(img)}
+                     alt={'img-' + product.name} unoptimized/>
             </div>
           ))}
 
@@ -57,7 +57,7 @@ const ProductDetail = ({product}: { product: ProductSchemaI }) => {
 
 
       {/* detail */}
-      <div className='ml-0 md:ml-6 mt-6 md:mt-0'>
+      <div className='flex-1 ml-0 md:ml-6 mt-6 md:mt-0'>
         <h1 className='text-xl font-bold flex-[2]'>{product.name}</h1>
 
         {/*<Rating/>*/}

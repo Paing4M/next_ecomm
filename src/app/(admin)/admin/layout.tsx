@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const AdminLayout = ({children}: { children: React.ReactNode }) => {
   return (
-    <main className='w-full min-h-screen bg-gray-100'>
+    <main className='w-full min-h-screen bg-gray-100 overflow-hidden'>
       {children}
     </main>
   )

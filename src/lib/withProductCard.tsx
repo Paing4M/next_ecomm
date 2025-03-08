@@ -1,10 +1,9 @@
 import {ProductSchemaI} from "@/lib/db/models/productModel";
-import ProductCard from "@/components/card/ProductCard";
 import {ComponentType} from "react";
 
 interface ProductListProps {
-  products: ProductSchemaI[];
-  className?: string;
+  products: ProductSchemaI[]
+  className?: string
 }
 
 const withProductCard = (CardComponent: ComponentType<{ product: ProductSchemaI }>) => {

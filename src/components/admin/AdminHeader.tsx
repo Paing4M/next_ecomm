@@ -7,8 +7,8 @@ interface AdminHeaderProps {
 
 const AdminHeader = ({title}: AdminHeaderProps) => {
   return (
-    <header>
-      <div className='flex items-center bg-white w-full px-4 py-2 h-[60px]'>
+    <header className='fixed top-0 w-full h-[60px] bg-white flex items-center px-4'>
+      <div className='flex items-center  w-full '>
         <h1 className='text-[1.5rem] capitalize font-bold'>{title}</h1>
       </div>
     </header>

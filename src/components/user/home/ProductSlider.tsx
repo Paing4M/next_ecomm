@@ -11,6 +11,7 @@ import {ArrowLeft, ArrowRight} from "lucide-react";
 import Link from "next/link";
 import Title from "@/components/user/Title";
 import ProductCard from "@/components/card/ProductCard";
+import UserProductCard from "@/components/user/product/UserProductCard";
 
 
 export interface SliderArrowProps {
@@ -100,7 +101,9 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
 
         <Slider className='mt-5 flex gap-3' {...settings}>
           {products?.map((product) => (
-            <ProductCard key={product._id} product={product} widthPercent='95%'/>
+            <div key={product._id} className='px-2'>
+              <UserProductCard product={product}/>
+            </div>
           ))}
         </Slider>
       </div>

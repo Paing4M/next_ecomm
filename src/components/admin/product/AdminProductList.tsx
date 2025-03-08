@@ -1,12 +1,12 @@
 import withProductCard from "@/lib/withProductCard";
-import ProductCard from "@/components/card/ProductCard";
 import {ProductSchemaI} from "@/lib/db/models/productModel";
+import AdminProductCard from "@/components/admin/product/AdminProductCard";
 
-const ProductList = withProductCard(ProductCard)
+const ProductList = withProductCard(AdminProductCard)
 
 const AdminProductList = ({products}: { products: ProductSchemaI[] }) => {
   return (
-    <ProductList products={products}/>
+    <ProductList className='grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' products={products}/>
   )
 }
 

@@ -4,13 +4,15 @@ interface CategoryHomeInterface {
   slug: string;
 }
 
-interface FormActionI<T> {
+interface FormActionI {
   error?: StringMap
   status?: number
   message?: string
-  data?: T
+  data?: any
+  inputData?: any
 }
 
 interface StringMap {
   [key: string]: string;
 }
+

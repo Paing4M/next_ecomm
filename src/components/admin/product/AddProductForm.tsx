@@ -8,6 +8,7 @@ import {getImageUrl} from "@/lib/utils";
 import {ProductSchemaI} from "@/lib/db/models/productModel";
 import {toast} from "react-toastify";
 import slugify from "react-slugify";
+import {ZProductSchemaI} from "@/lib/types";
 
 
 interface AddProductFormProps {
@@ -16,15 +17,18 @@ interface AddProductFormProps {
 }
 
 
-const initialState: FormActionI<ProductSchemaI> = {}
+const initialState: FormActionI = {}
+
 const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
 
   const [tags, setTags] = useState<Tag[]>([])
   const [images, setImages] = useState<string[]>([]);
   const [slug, setSlug] = useState('')
 
+
   const formRef = useRef<HTMLFormElement>(null);
   const [state, formAction] = useActionState(createProduct, initialState)
+  const [input, setInput] = useState<Partial<ProductSchemaI>>(state.inputData || initialState);
 
 
   useEffect(() => {
@@ -34,6 +38,16 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
       setImages([])
       closeModal()
     }
+
+    if (state.error?.error) {
+      toast.error(state?.error?.error)
+    }
+
+    if (state.inputData) {
+      setInput(state.inputData)
+    }
+
+
   }, [state]);
 
 
@@ -97,7 +111,8 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
           <label htmlFor="name" className='inline-block capitalize'>
             Name
           </label>
-          <input onChange={handleSlug} name='name' type="text" id='name' placeholder='Type here ...'
+          <input defaultValue={input.name} onChange={handleSlug} name='name' type="text" id='name'
+                 placeholder='Type here ...'
                  className={`input ${state?.error?.name && 'border-redBackground'}`}/>
           {state?.error?.name && <ErrorMsg error={state?.error?.name}/>}
         </div>
@@ -107,7 +122,9 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
           <label htmlFor="name" className='inline-block capitalize'>
             Slug
           </label>
-          <input value={slug} onChange={e => setSlug(slugify(e.target.value))} name='slug' type="text" id='name'
+          <input defaultValue={slug || input.slug} onChange={e => setSlug(slugify(e.target.value))} name='slug'
+                 type="text"
+                 id='name'
                  placeholder='Slug will be auto generated'
                  className={`input ${state?.error?.slug && 'border-redBackground'}`}/>
           {state?.error?.slug && <ErrorMsg error={state?.error?.slug}/>}
@@ -183,7 +200,8 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
         {/* category */}
         <div className='w-full'>
           <label htmlFor="category" className='inline-block capitalize'>Category</label>
-          <select name='category' id='category'
+
+          <select defaultValue={input.category} name='category' id='category'
                   className={`input !py-[10px] ${state?.error?.category && 'border-redBackground'}`}>
             <option value="" className='text-gray-400 '>Select Category</option>
             {categories && categories.map(category => (
@@ -196,7 +214,7 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
         {/* brand */}
         <div className='w-full'>
           <label htmlFor="brand" className='inline-block capitalize'>Brand</label>
-          <input name='brand' type="text" id='brand'
+          <input defaultValue={input.brand} name='brand' type="text" id='brand'
                  className={`input ${state?.error?.brand && 'border-redBackground'}`} placeholder='Type here ...'/>
           {state?.error?.brand && <ErrorMsg error={state?.error?.brand}/>}
         </div>
@@ -207,7 +225,7 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
         {/* price */}
         <div>
           <label htmlFor="price" className='inline-block capitalize'>Price</label>
-          <input name='price' type="number" id='price'
+          <input defaultValue={input.price} name='price' type="number" id='price'
                  className={`input ${state?.error?.price && 'border-redBackground'}`} placeholder='Type here ...'/>
           {state?.error?.price && <ErrorMsg error={state?.error?.price}/>}
         </div>
@@ -215,7 +233,7 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
         {/* count in stock */}
         <div>
           <label htmlFor="countInStock" className='inline-block capitalize'>InStock</label>
-          <input name='countInStock' type="number" id='countInStock'
+          <input defaultValue={input.countInStock} name='countInStock' type="number" id='countInStock'
                  className={`input ${state?.error?.countInStock && 'border-redBackground'}`}
                  placeholder='Type here ...'/>
           {state?.error?.countInStock && <ErrorMsg error={state?.error?.countInStock}/>}
@@ -225,14 +243,16 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
 
       {/* isPublished */}
       <div className='flex gap-2 items-center'>
-        <input name='isPublished' type="checkbox" id='isPublished' className='cursor-pointer select-none'/>
+        <input defaultChecked={input.isPublished} name='isPublished' type="checkbox" id='isPublished'
+               className='cursor-pointer select-none'/>
         <label htmlFor="isPublished" className='select-none'>Published</label>
       </div>
 
       {/* desc */}
       <div>
         <label htmlFor="description">Description</label>
-        <textarea placeholder='Type here ...' name="description" id="description" cols={40}
+        <textarea defaultValue={input.description} placeholder='Type here ...' name="description" id="description"
+                  cols={40}
                   className='input'></textarea>
       </div>
 

@@ -2,8 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import {BoxesIcon, BoxIcon, LayoutDashboardIcon, LogOutIcon, ShoppingBagIcon, ShoppingCartIcon} from "lucide-react";
+import React, {useState} from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BoxesIcon,
+  BoxIcon,
+  LayoutDashboardIcon,
+  LogOutIcon, Menu, MenuIcon,
+  ShoppingBagIcon,
+  ShoppingCartIcon
+} from "lucide-react";
 import {usePathname} from "next/navigation";
 
 const links = [
@@ -30,38 +39,54 @@ const links = [
 ]
 
 interface AdminSidebarProps {
-  className?: string;
+  className?: string
+  open: boolean
+  handleOpen: () => void
 }
 
-const AdminSidebar = ({className}: AdminSidebarProps) => {
+const AdminSidebar = ({className, open, handleOpen}: AdminSidebarProps) => {
 
   const pathname = usePathname();
-
-  console.log(pathname)
 
 
   return (
     <div
-      className='w-full bg-white  h-screen overflow-hidden overflow-y-scroll scrollbar-hide'>
-      <Link href={'/admin'} className='w-full h-[60px] block py-2 px-4'>
-        <Image src='/images/logo.png' height='100' width='100' alt='logo-ecomm'/>
-      </Link>
+      className={`fixed top-0 px-2 bg-white h-screen overflow-y-scroll scrollbar-hide ${className}`}>
+      <div className='h-[60px] py-3'>
 
-      <div className='mt-[1rem] px-4'>
+        <div className='flex gap-x-2 items-center relative'>
+          <Image className={`${open ? 'inline-block' : 'hidden'}`} src='/images/logo.png' height='100' width='100'
+                 alt='logo-ecomm'/>
+          <div onClick={handleOpen}
+               className='font-bold px-3 py-2 cursor-pointer  rounded-full bg-blue-500 text-white w-fit absolute right-0 top-0'>
+
+            {open ? (
+              <ArrowLeft className='w-6 h-6 '/>
+            ) : (
+              <ArrowRight className='w-6 h-6 '/>
+            )}
+
+          </div>
+        </div>
+
+      </div>
+
+      <div className='mt-[0.5rem]'>
         <nav>
           <ul className='flex flex-col gap-y-6'>
             {
               links.map(({name, href, icon: Icon}, idx) => (
                 <li key={name + "-" + idx}>
                   <Link href={href}
-                        className={`flex gap-x-3 px-3 py-2 rounded hover:bg-blue-500 hover:text-white ${pathname === href ? 'bg-blue-500 text-white' : ''}`}>{Icon} {name}</Link>
+                        className={`flex gap-x-3 px-3 py-2 rounded hover:bg-blue-500 hover:text-white ${pathname === href ? 'bg-blue-500 text-white' : ''}`}>{Icon}
+                    <span className={`${open ? 'inline-block' : 'hidden'}`}>{name}</span></Link>
                 </li>
               ))
             }
             <li>
               <button className='flex gap-x-3 px-3 py-2 rounded hover:bg-blue-500 hover:text-white w-full'>
                 <LogOutIcon/>
-                Sign Out
+                <span className={`${open ? 'inline-block' : 'hidden'}`}>Sign Out</span>
               </button>
             </li>
           </ul>

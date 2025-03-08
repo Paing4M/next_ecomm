@@ -5,6 +5,7 @@ import Product, {ProductSchemaI} from "@/lib/db/models/productModel";
 import Category from "@/lib/db/models/categoryModel";
 import {ZProductSchema} from "@/lib/validator";
 import {convertZodError} from "@/lib/utils";
+import {revalidateTag, unstable_cache as cache} from "next/cache";
 
 export const getPopularProducts = async (limit: number = 5) => {
   await connectDb()
@@ -18,7 +19,7 @@ export const getPopularProducts = async (limit: number = 5) => {
 }
 
 
-export const getLimitProducts = async (limit: number = 8) => {
+const _getLimitProducts = async (limit: number = 8) => {
   await connectDb()
 
   const products = await Product.find({
@@ -29,6 +30,9 @@ export const getLimitProducts = async (limit: number = 8) => {
 
   return JSON.parse(JSON.stringify(products)) as ProductSchemaI[]
 }
+export const getLimitProducts = cache(_getLimitProducts, ['getLimitProducts'], {
+  tags: ['Products']
+})
 
 export const getLatestProducts = async () => {
   await connectDb()
@@ -147,8 +151,8 @@ export const getProductTags = async () => {
   }
 }
 
-
-export const createProduct = async (prevState: FormActionI<ProductSchemaI>, formData: FormData): Promise<FormActionI<ProductSchemaI>> => {
+// create product
+export const createProduct = async (prevState: FormActionI, formData: FormData): Promise<FormActionI> => {
 
   try {
     const data = Object.fromEntries(formData.entries()) as Partial<ProductSchemaI>
@@ -157,23 +161,39 @@ export const createProduct = async (prevState: FormActionI<ProductSchemaI>, form
     data.brand = data.brand?.toLowerCase()
     data.isPublished = !!formData.get('isPublished')
 
+
     const validator = ZProductSchema.safeParse(data)
     if (!validator.success) {
       return {
-        error: convertZodError(validator.error)
+        error: convertZodError(validator.error),
+        inputData: data as ProductSchemaI
       }
     }
 
+
     await connectDb()
     const product = await Product.create(data)
+    revalidateTag('Products')
     return {
       message: `Successfully created product.`,
       status: 200,
-      data: JSON.parse(JSON.stringify(product))
     }
 
-  } catch (e) {
-    console.error(e)
+  } catch (e: any) {
+    // console.error(e)
+    // check duplicate error
+    if (e.code === 11000) {
+      return {
+        error: {
+          'error': `The value of '${Object.keys(e.keyValue)[0]}'  already exists.`
+        },
+
+      }
+    }
+
+
     throw new Error('Error creating product.')
   }
 }
+
+
