@@ -155,12 +155,7 @@ export const getProductTags = async () => {
 export const createProduct = async (prevState: FormActionI, formData: FormData): Promise<FormActionI> => {
 
   try {
-    const data = Object.fromEntries(formData.entries()) as Partial<ProductSchemaI>
-    data.tags = JSON.parse(formData.get('tags') as string)
-    data.images = JSON.parse(formData.get('images') as string)
-    data.brand = data.brand?.toLowerCase()
-    data.isPublished = !!formData.get('isPublished')
-
+    const data = handleFormData(formData)
 
     const validator = ZProductSchema.safeParse(data)
     if (!validator.success) {
@@ -170,9 +165,8 @@ export const createProduct = async (prevState: FormActionI, formData: FormData):
       }
     }
 
-
     await connectDb()
-    const product = await Product.create(data)
+    await Product.create(data)
     revalidateTag('Products')
     return {
       message: `Successfully created product.`,
@@ -185,15 +179,63 @@ export const createProduct = async (prevState: FormActionI, formData: FormData):
     if (e.code === 11000) {
       return {
         error: {
-          'error': `The value of '${Object.keys(e.keyValue)[0]}'  already exists.`
+          'error': `The value of '${Object.keys(e.keyValue)[0]}:${Object.values(e.keyValue)[0]}'  already exists.`
         },
 
       }
     }
-
 
     throw new Error('Error creating product.')
   }
 }
 
 
+// update 
+export const updateProduct = async (prevState: FormActionI, formData: FormData): Promise<FormActionI> => {
+  try {
+    const data = handleFormData(formData)
+    const product_id = data._id
+
+    const validator = ZProductSchema.safeParse(data)
+    if (!validator.success) {
+      return {
+        error: convertZodError(validator.error),
+        inputData: data as ProductSchemaI
+      }
+    }
+
+    await connectDb()
+    await Product.findByIdAndUpdate(product_id, data, {new: true})
+    revalidateTag('Products')
+
+    return {
+      message: `Successfully updated product.`,
+      status: 200,
+    }
+  } catch (e: any) {
+    console.error(e)
+    // check duplicate error
+    if (e.code === 11000) {
+      const errKey = Object.keys(e.keyValue)[0]
+
+      return {
+        error: {
+          [errKey]: `The value of '${Object.values(e.keyValue)[0]}'  already exists.`
+        },
+
+      }
+    }
+
+    throw new Error('Error creating product.')
+  }
+
+}
+
+const handleFormData = (formData: FormData) => {
+  const data = Object.fromEntries(formData.entries()) as Partial<ProductSchemaI>
+  data.tags = JSON.parse(formData.get('tags') as string)
+  data.images = JSON.parse(formData.get('images') as string)
+  data.brand = data.brand?.toLowerCase()
+  data.isPublished = !!formData.get('isPublished')
+  return data
+}

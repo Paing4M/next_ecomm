@@ -1,6 +1,6 @@
 import React, {useActionState, useEffect, useRef, useState} from "react";
 import {SEPARATORS, Tag, WithContext as ReactTags} from "react-tag-input";
-import {createProduct} from "@/lib/actions/productActions";
+import {createProduct, updateProduct} from "@/lib/actions/productActions";
 import ErrorMsg from "@/components/ErrorMsg";
 import {UploadCloudIcon, XIcon} from "lucide-react";
 import Image from "next/image";
@@ -8,27 +8,31 @@ import {getImageUrl} from "@/lib/utils";
 import {ProductSchemaI} from "@/lib/db/models/productModel";
 import {toast} from "react-toastify";
 import slugify from "react-slugify";
-import {ZProductSchemaI} from "@/lib/types";
 
 
-interface AddProductFormProps {
+interface ProductFormProps {
   closeModal: () => void
   categories: CategoryHomeInterface[]
+  editProduct: ProductSchemaI | null
 }
 
 
 const initialState: FormActionI = {}
 
-const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
+const ProductForm = ({closeModal, categories, editProduct}: ProductFormProps) => {
 
-  const [tags, setTags] = useState<Tag[]>([])
-  const [images, setImages] = useState<string[]>([]);
-  const [slug, setSlug] = useState('')
+  const [tags, setTags] = useState<Tag[]>(editProduct?.tags?.map(tag => ({
+    className: '',
+    id: tag,
+    text: tag,
+  })) || [])
+  const [images, setImages] = useState<string[]>(editProduct?.images || []);
 
 
   const formRef = useRef<HTMLFormElement>(null);
-  const [state, formAction] = useActionState(createProduct, initialState)
-  const [input, setInput] = useState<Partial<ProductSchemaI>>(state.inputData || initialState);
+  const [state, formAction] = useActionState(editProduct ? updateProduct : createProduct, initialState)
+  const [input, setInput] = useState<Partial<ProductSchemaI>>(state.inputData || editProduct || initialState);
+  const [slug, setSlug] = useState(state.inputData?.slug || editProduct?.slug || '');
 
 
   useEffect(() => {
@@ -39,14 +43,10 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
       closeModal()
     }
 
-    if (state.error?.error) {
-      toast.error(state?.error?.error)
-    }
 
     if (state.inputData) {
       setInput(state.inputData)
     }
-
 
   }, [state]);
 
@@ -99,13 +99,21 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
   }
 
   const handleSlug = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSlug(slugify(e.target.value))
+
+    setSlug(slugify(e.target.value));
+
   }
 
 
   return (
     <form ref={formRef} action={formAction} className='space-y-3 text-gray-600'>
       <div className='flex items-start justify-between gap-2'>
+        {/* edit id */}
+        {
+          editProduct &&
+          <input readOnly defaultValue={editProduct?._id} type="text" name='_id' hidden className='hidden'/>
+        }
+
         {/* name */}
         <div>
           <label htmlFor="name" className='inline-block capitalize'>
@@ -122,7 +130,7 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
           <label htmlFor="name" className='inline-block capitalize'>
             Slug
           </label>
-          <input defaultValue={slug || input.slug} onChange={e => setSlug(slugify(e.target.value))} name='slug'
+          <input value={slug} onChange={handleSlug} name='slug'
                  type="text"
                  id='name'
                  placeholder='Slug will be auto generated'
@@ -263,8 +271,8 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
           className='border px-3 py-1 rounded focus:outline-none hover:bg-redBackground hover:text-white'>Cancel
         </button>
 
-        <button type='submit' className='border px-3 py-1 rounded focus:outline-none bg-blue-600 text-white'>Add
-          Product
+        <button type='submit' className='border px-3 py-1 rounded focus:outline-none bg-blue-600 text-white'>
+          {editProduct ? 'Update Product' : 'Add Product'}
         </button>
       </div>
 
@@ -273,4 +281,4 @@ const AddProductForm = ({closeModal, categories}: AddProductFormProps) => {
   )
 }
 
-export default AddProductForm
+export default ProductForm

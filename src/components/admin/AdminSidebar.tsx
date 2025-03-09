@@ -1,15 +1,14 @@
 'use client'
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React, {useState} from "react";
 import {
-  ArrowLeft,
-  ArrowRight,
-  BoxesIcon,
   BoxIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   LayoutDashboardIcon,
-  LogOutIcon, Menu, MenuIcon,
+  LogOutIcon,
   ShoppingBagIcon,
   ShoppingCartIcon
 } from "lucide-react";
@@ -61,9 +60,9 @@ const AdminSidebar = ({className, open, handleOpen}: AdminSidebarProps) => {
                className='font-bold px-3 py-2 cursor-pointer  rounded-full bg-blue-500 text-white w-fit absolute right-0 top-0'>
 
             {open ? (
-              <ArrowLeft className='w-6 h-6 '/>
+              <ChevronLeftIcon className='w-6 h-6 '/>
             ) : (
-              <ArrowRight className='w-6 h-6 '/>
+              <ChevronRightIcon className='w-6 h-6 '/>
             )}
 
           </div>

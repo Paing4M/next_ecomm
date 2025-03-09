@@ -15,15 +15,27 @@ const ProductContainer = ({categories, products}: ProductContainerProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterProducts, setFilterProducts] = useState<ProductSchemaI[]>(products || [])
+  const [editProduct, setEditProduct] = useState<ProductSchemaI | null>(null)
 
   useEffect(() => {
     setFilterProducts(() => products?.filter(product => product.name.toLowerCase().includes(searchTerm.trim().toLowerCase()))
     )
   }, [products, searchTerm]);
 
-  const closeModal = () => setIsOpen(false)
+  const openModal = () => setIsOpen(true)
+  const closeModal = () => {
+    setEditProduct(null)
+    setIsOpen(false)
+  }
 
-  
+
+  const handleEdit = (product: ProductSchemaI) => {
+    setEditProduct(product)
+    openModal()
+  }
+
+  console.log(editProduct)
+
   return (
     <>
       <div>
@@ -34,20 +46,20 @@ const ProductContainer = ({categories, products}: ProductContainerProps) => {
             type="text"
             placeholder='Search ...'/>
 
-          <button onClick={() => setIsOpen(true)}
+          <button onClick={openModal}
                   className='bg-blue-500 rounded py-2 px-4 text-white text-center'>Create Product
           </button>
 
         </div>
 
         <div className='mt-3'>
-          <AdminProductList products={filterProducts}/>
+          <AdminProductList handleEdit={handleEdit} products={filterProducts}/>
         </div>
       </div>
 
 
       {/* product modal */}
-      <ProductModal open={isOpen} closeModal={closeModal} categories={categories}/>
+      <ProductModal editProduct={editProduct} open={isOpen} closeModal={closeModal} categories={categories}/>
     </>
   )
 }

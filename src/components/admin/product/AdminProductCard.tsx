@@ -3,7 +3,13 @@ import {ProductSchemaI} from "@/lib/db/models/productModel";
 import Image from "next/image";
 import {getImageUrl} from "@/lib/utils";
 
-const AdminProductCard = ({product}: { product: ProductSchemaI }) => {
+interface AdminProductCardProps {
+  product: ProductSchemaI
+  handleEdit?: (product: ProductSchemaI) => void
+}
+
+
+const AdminProductCard = ({product, handleEdit}: AdminProductCardProps) => {
   return (
     <div className={`rounded p-4 group border shadow w-full bg-white`}>
       <Image className='w-full h-auto sm:h-[260px] md:[200px] lg:h-[240px] xl:h-[220px] object-fit'
@@ -19,7 +25,9 @@ const AdminProductCard = ({product}: { product: ProductSchemaI }) => {
       </div>
       <div className='flex items-center gap-x-2 justify-between mt-3'>
         <button className='px-3 py-1 bg-redBackground min-w-[100px] text-center rounded text-white'>Delete</button>
-        <button className='px-3 py-1 bg-green-400 min-w-[100px] text-center rounded text-white'>Edit</button>
+        <button onClick={() => handleEdit ? handleEdit(product) : undefined}
+                className='px-3 py-1 bg-green-400 min-w-[100px] text-center rounded text-white'>Edit
+        </button>
       </div>
     </div>
 
