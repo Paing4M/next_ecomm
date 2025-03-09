@@ -1,7 +1,7 @@
 'use client'
 
 import AdminHeader from "@/components/admin/AdminHeader";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import ProductModal from "@/components/admin/product/ProductModal";
 import {ProductSchemaI} from "@/lib/db/models/productModel";
 import AdminProductList from "@/components/admin/product/AdminProductList";
@@ -13,15 +13,23 @@ interface ProductContainerProps {
 
 const ProductContainer = ({categories, products}: ProductContainerProps) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filterProducts, setFilterProducts] = useState<ProductSchemaI[]>(products || [])
+
+  useEffect(() => {
+    setFilterProducts(() => products?.filter(product => product.name.toLowerCase().includes(searchTerm.trim().toLowerCase()))
+    )
+  }, [products, searchTerm]);
 
   const closeModal = () => setIsOpen(false)
 
-
+  
   return (
     <>
       <div>
         <div className='py-2 gap-2 flex justify-between items-end md:items-center flex-col-reverse md:flex-row'>
           <input
+            onChange={e => setSearchTerm(e.target.value)}
             className='py-2 px-4 focus:ring-2 outline-none focus:ring-blue-500 broder rounded w-full shadow max-w-[500px]'
             type="text"
             placeholder='Search ...'/>
@@ -33,7 +41,7 @@ const ProductContainer = ({categories, products}: ProductContainerProps) => {
         </div>
 
         <div className='mt-3'>
-          <AdminProductList products={products}/>
+          <AdminProductList products={filterProducts}/>
         </div>
       </div>
 
