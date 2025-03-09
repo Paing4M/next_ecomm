@@ -174,12 +174,14 @@ export const createProduct = async (prevState: FormActionI, formData: FormData):
     }
 
   } catch (e: any) {
-    // console.error(e)
+    console.error(e)
     // check duplicate error
     if (e.code === 11000) {
+      const errKey = Object.keys(e.keyValue)[0]
+
       return {
         error: {
-          'error': `The value of '${Object.keys(e.keyValue)[0]}:${Object.values(e.keyValue)[0]}'  already exists.`
+          [errKey]: `'${Object.keys(e.keyValue)[0]}' is already exists.`
         },
 
       }
@@ -220,7 +222,7 @@ export const updateProduct = async (prevState: FormActionI, formData: FormData):
 
       return {
         error: {
-          [errKey]: `The value of '${Object.values(e.keyValue)[0]}'  already exists.`
+          [errKey]: `'${Object.keys(e.keyValue)[0]}' is already exists.`
         },
 
       }

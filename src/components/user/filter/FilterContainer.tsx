@@ -2,10 +2,7 @@
 
 import CategoryFilter from "@/components/user/filter/CategoryFilter";
 import BrandFilter from "@/components/user/filter/BrandFilter";
-import React, {useEffect, useState} from "react";
-import {useRouter, useSearchParams} from "next/navigation";
-import {generateFilterUrl} from "@/lib/utils";
-import TagFilter from "@/components/user/filter/TagFilter";
+import React from "react";
 import {FilterI} from "@/components/user/product/Container";
 
 interface FilterContainerProps {
@@ -27,7 +24,6 @@ const FilterContainer = ({
                            filter
                          }: FilterContainerProps) => {
 
-  const searchParams = useSearchParams()
 
   return (
     <div
