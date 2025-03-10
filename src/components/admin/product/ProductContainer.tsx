@@ -6,6 +6,8 @@ import ProductModal from "@/components/admin/product/ProductModal";
 import {ProductSchemaI} from "@/lib/db/models/productModel";
 import AdminProductList from "@/components/admin/product/AdminProductList";
 import ContainerLayout from "@/components/admin/ContainerLayout";
+import {deleteProduct} from "@/lib/actions/productActions";
+import {toast} from "react-toastify";
 
 interface ProductContainerProps {
   categories: CategoryI[]
@@ -35,6 +37,19 @@ const ProductContainer = ({categories, products}: ProductContainerProps) => {
     openModal()
   }
 
+  const handleDelete = async (id: string) => {
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      try {
+        const res = await deleteProduct(id)
+        if (res.status === 200) {
+          toast.success(res.message)
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    return
+  }
 
   return (
     <>
@@ -44,7 +59,7 @@ const ProductContainer = ({categories, products}: ProductContainerProps) => {
           openModal={openModal}
           buttonText={'Create Product'}/>
         <ContainerLayout.Body>
-          <AdminProductList handleEdit={handleEdit} products={filterProducts}/>
+          <AdminProductList handleDelete={handleDelete} handleEdit={handleEdit} products={filterProducts}/>
         </ContainerLayout.Body>
       </ContainerLayout>
 

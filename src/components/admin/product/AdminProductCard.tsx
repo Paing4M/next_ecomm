@@ -5,11 +5,12 @@ import {getImageUrl} from "@/lib/utils";
 
 interface AdminProductCardProps {
   product: ProductSchemaI
-  handleEdit?: (product: ProductSchemaI) => void
+  handleEdit: (product: ProductSchemaI) => void
+  handleDelete: (id: string) => void
 }
 
 
-const AdminProductCard = ({product, handleEdit}: AdminProductCardProps) => {
+const AdminProductCard = ({product, handleEdit, handleDelete}: AdminProductCardProps) => {
   return (
     <div className={`rounded p-4 group border shadow w-full bg-white`}>
       <Image className='w-full h-auto sm:h-[260px] md:[200px] lg:h-[240px] xl:h-[220px] object-fit'
@@ -24,8 +25,10 @@ const AdminProductCard = ({product, handleEdit}: AdminProductCardProps) => {
         <p>$ {product.price.toFixed(2)}</p>
       </div>
       <div className='flex items-center gap-x-2 justify-between mt-3'>
-        <button className='px-3 py-1 bg-redBackground min-w-[100px] text-center rounded text-white'>Delete</button>
-        <button onClick={() => handleEdit ? handleEdit(product) : undefined}
+        <button onClick={() => handleDelete(product._id)}
+                className='px-3 py-1 bg-redBackground min-w-[100px] text-center rounded text-white'>Delete
+        </button>
+        <button onClick={() => handleEdit(product)}
                 className='px-3 py-1 bg-green-400 min-w-[100px] text-center rounded text-white'>Edit
         </button>
       </div>

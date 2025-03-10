@@ -49,12 +49,10 @@ export const DELETE = async (req: Request) => {
         'message': 'Image delete failed. Please try again later.'
       }, {status: 400})
     }
-
   })
 
   return NextResponse.json({
     'message': 'Successfully deleted image.',
   }, {status: 200})
-
 
 }

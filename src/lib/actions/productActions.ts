@@ -6,6 +6,9 @@ import Category from "@/lib/db/models/categoryModel";
 import {ZProductSchema} from "@/lib/validator";
 import {convertZodError} from "@/lib/utils";
 import {revalidateTag, unstable_cache as cache} from "next/cache";
+import path from "node:path";
+import fs from "node:fs";
+import {NextResponse} from "next/server";
 
 export const getPopularProducts = async (limit: number = 5) => {
   await connectDb()
@@ -240,4 +243,40 @@ const handleFormData = (formData: FormData) => {
   data.brand = data.brand?.toLowerCase()
   data.isPublished = !!formData.get('isPublished')
   return data
+}
+
+
+export const deleteProduct = async (id: string): Promise<any> => {
+  try {
+    await connectDb()
+    const product: ProductSchemaI | null = await Product.findById(id)
+
+    if (product) {
+      const images = product.images as string[]
+      for (const image of images) {
+        await deleteImage(image)
+      }
+    }
+
+    const res = await Product.findByIdAndDelete(id)
+    revalidateTag('Products')
+    return {
+      message: `Successfully deleted product.`,
+      status: 200,
+    }
+  } catch (e) {
+    console.error(e)
+    throw new Error('Error deleting product.')
+  }
+}
+
+const deleteImage = async (name: string) => {
+  const filePath = path.join(process.cwd(), 'public', 'images', 'products', name)
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      return NextResponse.json({
+        'message': 'Image delete failed. Please try again later.'
+      }, {status: 400})
+    }
+  })
 }
