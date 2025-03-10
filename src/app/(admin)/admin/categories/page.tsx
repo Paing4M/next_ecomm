@@ -7,7 +7,7 @@ const CategoryPage = async () => {
 
 
   return (
-    <AdminLayout>
+    <AdminLayout title='Categories'>
       <CategoryContainer categories={categories}/>
     </AdminLayout>
   )

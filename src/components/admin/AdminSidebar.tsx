@@ -50,7 +50,7 @@ const AdminSidebar = ({className, open, handleOpen}: AdminSidebarProps) => {
 
   return (
     <div
-      className={`fixed top-0 px-2 bg-white h-screen overflow-y-scroll scrollbar-hide ${className}`}>
+      className={`fixed top-0 px-2 bg-white h-screen ${className}`}>
       <div className='h-[60px] py-3'>
 
         <div className='flex gap-x-2 items-center relative'>
@@ -75,10 +75,19 @@ const AdminSidebar = ({className, open, handleOpen}: AdminSidebarProps) => {
           <ul className='flex flex-col gap-y-6'>
             {
               links.map(({name, href, icon: Icon}, idx) => (
-                <li key={name + "-" + idx}>
+                <li key={name + "-" + idx} className='relative group'>
                   <Link href={href}
                         className={`flex gap-x-3 px-3 py-2 rounded hover:bg-blue-500 hover:text-white ${pathname === href ? 'bg-blue-500 text-white' : ''}`}>{Icon}
                     <span className={`${open ? 'inline-block' : 'hidden'}`}>{name}</span></Link>
+
+                  {!open && (
+                    <div
+                      className='bg-white ring-2 ring-blue-500 absolute right-[-100px] top-[50%] transform translate-y-[-50%] text-sm px-3 py-1 text-center z-[30] rounded-full min-w-[100px] shadow-2xl hidden group-hover:block'>
+                      {name}
+                    </div>
+                  )}
+
+
                 </li>
               ))
             }

@@ -10,7 +10,7 @@ const ProductPage = async () => {
 
 
   return (
-    <AdminLayout>
+    <AdminLayout title={'Products'}>
       <ProductContainer products={products} categories={categories}/>
     </AdminLayout>
   )

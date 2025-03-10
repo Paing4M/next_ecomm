@@ -11,7 +11,7 @@ const CategoryTable = ({categories}: CategoryTableProps) => {
     Category Found.</p>
 
   return (
-    <div className='relative overflow-x-auto '>
+    <div className=' overflow-x-auto z-[1]'>
       <table className='w-full text-left'>
         <thead className='text-gray-700 uppercase bg-white'>
         <tr>
