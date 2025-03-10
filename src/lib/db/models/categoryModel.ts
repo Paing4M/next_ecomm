@@ -1,23 +1,22 @@
-import mongoose, {Model} from "mongoose";
+import mongoose, {Model, Document} from "mongoose";
+import {ZCategorySchemaI} from "@/lib/types";
 
-interface Category {
-  name: string;
-  slug: string;
-  description: string;
+interface Category extends Document, ZCategorySchemaI {
+  createdAt: Date
+  updatedAt: Date
 }
 
 const categorySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   slug: {
     type: String,
     required: true,
+    unique: true,
   },
-  description: {
-    type: String,
-  }
 }, {timestamps: true});
 
 const Category = mongoose.models?.Category || mongoose.model<Category>('Category', categorySchema);

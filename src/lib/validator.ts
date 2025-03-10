@@ -22,3 +22,7 @@ export const ZProductSchema = z.object({
   reviews: z.array(ZReviewSchema).optional(),
 });
 
+export const ZCategorySchema = z.object({
+  name: z.string().trim().min(1, 'Required'),
+  slug: z.string().trim().min(1, 'Required'),
+})

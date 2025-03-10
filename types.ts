@@ -8,7 +8,6 @@ interface FormActionI {
   error?: StringMap
   status?: number
   message?: string
-  data?: any
   inputData?: any
 }
 
