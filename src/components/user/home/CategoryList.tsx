@@ -35,7 +35,7 @@ export const Next = ({onClick}: { onClick?: any }) => {
 }
 
 
-const CategoryList = ({categories}: { categories: CategoryHomeInterface[] }) => {
+const CategoryList = ({categories}: { categories: CategoryI[] }) => {
 
   const settings = {
     infinite: false,

@@ -6,7 +6,7 @@ import React from "react";
 import {FilterI} from "@/components/user/product/Container";
 
 interface FilterContainerProps {
-  categories: CategoryHomeInterface[]
+  categories: CategoryI[]
   brands: string[],
   filter: FilterI
   className?: string,

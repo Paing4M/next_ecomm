@@ -9,7 +9,7 @@ import TagFilter from "@/components/user/filter/TagFilter";
 import {useRouter, useSearchParams} from "next/navigation";
 
 interface ContainerProps {
-  categories?: CategoryHomeInterface[];
+  categories?: CategoryI[];
   brands?: string[];
   products?: ProductSchemaI[];
   tags?: string[];

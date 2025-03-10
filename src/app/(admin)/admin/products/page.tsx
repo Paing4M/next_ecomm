@@ -1,12 +1,12 @@
 import ProductContainer from "@/components/admin/product/ProductContainer";
-import {getAllCategories} from "@/lib/actions/categoryActions";
+import {getCategoriesInUse} from "@/lib/actions/categoryActions";
 import AdminLayout from "@/components/admin/AdminLayout";
 import {getLimitProducts} from "@/lib/actions/productActions";
 import {ProductSchemaI} from "@/lib/db/models/productModel";
 
 const ProductPage = async () => {
   const products: ProductSchemaI[] = await getLimitProducts(20)
-  const categories: CategoryHomeInterface[] = await getAllCategories()
+  const categories: CategoryI[] = await getCategoriesInUse()
 
 
   return (

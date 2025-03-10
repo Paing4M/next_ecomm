@@ -1,6 +1,6 @@
 import {Metadata} from "next";
 import {getAllProductBrands, getFilteredProducts, getProductTags} from "@/lib/actions/productActions";
-import {getAllCategories} from "@/lib/actions/categoryActions";
+import {getCategoriesInUse} from "@/lib/actions/categoryActions";
 import Container from "@/components/user/product/Container";
 
 export const metadata: Metadata = {
@@ -15,10 +15,10 @@ const ShopPage = async ({searchParams}: ShopPageProps) => {
   const params = await searchParams
 
   const brands: string[] = await getAllProductBrands()
-  const categories: CategoryHomeInterface[] = await getAllCategories()
+  const categories: CategoryI[] = await getCategoriesInUse()
   const products = await getFilteredProducts(params)
   const tags = await getProductTags()
-  
+
 
   return (
     <div className='py-3 h-fit '>

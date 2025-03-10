@@ -4,7 +4,7 @@
 import {FilterI} from "@/components/user/product/Container";
 
 interface CategoryFilterProps {
-  categories: CategoryHomeInterface[]
+  categories: CategoryI[]
   handleFilter: (key: keyof FilterI, value: string) => void
   selectedCategory: string[]
 }

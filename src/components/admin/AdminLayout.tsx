@@ -16,7 +16,7 @@ const AdminLayout = ({children}: { children: React.ReactNode }) => {
         className={`${open ? 'w-[200px]' : 'w-fit'} `}/>
       <div className={`w-full h-full ${open ? 'pl-[200px]' : 'pl-[64px]'}`}>
         <AdminHeader title={'products'}/>
-        <div className='mt-[65px] px-4'>
+        <div className='mt-[65px] px-4 py-2'>
           {children}
         </div>
       </div>

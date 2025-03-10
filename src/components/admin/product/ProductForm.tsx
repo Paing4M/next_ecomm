@@ -12,7 +12,7 @@ import slugify from "react-slugify";
 
 interface ProductFormProps {
   closeModal: () => void
-  categories: CategoryHomeInterface[]
+  categories: CategoryI[]
   editProduct: ProductSchemaI | null
 }
 

@@ -5,7 +5,7 @@ import {ProductSchemaI} from "@/lib/db/models/productModel";
 interface ProductModalProps {
   open: boolean;
   closeModal: () => void;
-  categories: CategoryHomeInterface[];
+  categories: CategoryI[];
   editProduct: ProductSchemaI | null;
 }
 
