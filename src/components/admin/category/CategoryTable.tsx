@@ -2,10 +2,11 @@ import {DeleteIcon, PencilIcon, Trash2Icon, TrashIcon} from "lucide-react";
 
 interface CategoryTableProps {
   categories: CategoryI[]
+  handleEdit: (category: CategoryI) => void
 }
 
 
-const CategoryTable = ({categories}: CategoryTableProps) => {
+const CategoryTable = ({categories, handleEdit}: CategoryTableProps) => {
 
   if (categories && categories.length === 0) return <p className='text-sm text-redBackground text-center py-3'>No
     Category Found.</p>
@@ -35,6 +36,7 @@ const CategoryTable = ({categories}: CategoryTableProps) => {
                   className='min-w-[60px] flex items-center justify-center rounded text-gray-200 px-2 bg-redBackground py-1'>
                   <Trash2Icon/></button>
                 <button
+                  onClick={() => handleEdit(category)}
                   className='min-w-[60px] flex items-center justify-center rounded text-gray-200 px-2 bg-green-500 py-1'>
                   <PencilIcon/></button>
 

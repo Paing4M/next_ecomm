@@ -1,28 +1,29 @@
 'use client'
 
 import React, {useActionState, useEffect, useRef, useState} from "react";
-import {createCategory} from "@/lib/actions/categoryActions";
+import {createCategory, updateCategory} from "@/lib/actions/categoryActions";
 import ErrorMsg from "@/components/ErrorMsg";
 import slugify from "react-slugify";
 import {toast} from "react-toastify";
 
 interface CategoryFormProps {
-  closeModal: () => void;
+  closeModal: () => void
+  category: CategoryI | null
 }
 
 const initialState: FormActionI = {}
 
-const CategoryForm = ({closeModal}: CategoryFormProps) => {
+const CategoryForm = ({closeModal, category}: CategoryFormProps) => {
 
-  const [state, formAction] = useActionState(createCategory, initialState)
+  const [state, formAction] = useActionState(category ? updateCategory : createCategory, initialState)
 
-  const [slug, setSlug] = useState('');
-  const [name, setName] = useState('');
+  const [slug, setSlug] = useState(category?.name || '');
+  const [name, setName] = useState(category?.slug || '');
 
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (state.status === 200) {
+    if (state?.status === 200) {
       toast.success(state.message)
       formRef.current?.reset()
       closeModal()
@@ -32,6 +33,11 @@ const CategoryForm = ({closeModal}: CategoryFormProps) => {
 
   return (
     <form ref={formRef} action={formAction} className='space-y-3'>
+
+      {/* edit id */}
+      {category && (
+        <input readOnly type="text" hidden className='hidden' name='id' value={category?._id}/>
+      )}
 
       <div>
         <label htmlFor="name" className='inline-block capitalize'>
@@ -67,7 +73,7 @@ const CategoryForm = ({closeModal}: CategoryFormProps) => {
         </button>
 
         <button type='submit' className='border px-3 py-1 rounded focus:outline-none bg-blue-600 text-white'>
-          Add Category
+          {category ? 'Update Category' : 'Add Category'}
         </button>
       </div>
     </form>

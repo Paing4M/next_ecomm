@@ -2,20 +2,21 @@ import Modal from "@/components/modal/Modal";
 import CategoryForm from "@/components/admin/category/CategoryForm";
 
 interface CategoryModalProps {
-  closeModal: () => void;
+  closeModal: () => void
   open: boolean
+  category: CategoryI | null
 }
 
-const CategoryModal = ({closeModal, open}: CategoryModalProps) => {
+const CategoryModal = ({closeModal, open, category}: CategoryModalProps) => {
   return (
     <Modal open={open} closeModal={closeModal}>
       <Modal.Title>
-        {/*{editProduct ? 'Edit Product' : 'Add Product'}*/}
-        Add Category
+
+        {category ? 'Edit' : 'Add Category'}
       </Modal.Title>
       <hr className='my-2'/>
       <div>
-        <CategoryForm closeModal={closeModal}/>
+        <CategoryForm category={category} closeModal={closeModal}/>
       </div>
     </Modal>
   )

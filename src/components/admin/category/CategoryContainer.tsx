@@ -14,6 +14,8 @@ const CategoryContainer = ({categories}: CategoryContainerProps) => {
   const [open, setOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [filtered, setFiltered] = useState<CategoryI[]>([])
+  const [editCategory, setEditCategory] = useState<CategoryI | null>(null);
+
 
   useEffect(() => {
     setFiltered(() => categories?.filter(category => category.name.toLowerCase().includes(searchTerm.trim().toLowerCase()))
@@ -24,9 +26,15 @@ const CategoryContainer = ({categories}: CategoryContainerProps) => {
 
   const closeModal = () => {
     setOpen(false)
+    setEditCategory(null)
   }
 
-  
+  const handleEdit = (category: CategoryI) => {
+    setEditCategory(category)
+    openModal()
+  }
+
+
   return (
     <>
       <ContainerLayout>
@@ -35,13 +43,13 @@ const CategoryContainer = ({categories}: CategoryContainerProps) => {
           openModal={openModal}
           buttonText={'Create Category'}/>
         <ContainerLayout.Body>
-          <CategoryTable categories={filtered}/>
+          <CategoryTable handleEdit={handleEdit} categories={filtered}/>
         </ContainerLayout.Body>
       </ContainerLayout>
 
 
       {/* category modal */}
-      <CategoryModal closeModal={closeModal} open={open}/>
+      <CategoryModal category={editCategory} closeModal={closeModal} open={open}/>
     </>
   )
 }

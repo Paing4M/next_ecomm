@@ -73,10 +73,50 @@ export const createCategory = async (prevState: FormActionI, formData: FormData)
         error: {
           [errKey]: `'${Object.keys(e.keyValue)[0]}' is already exists.`
         },
-
       }
     }
     throw new Error('Error creating category.')
+
+  }
+
+}
+
+export const updateCategory = async (prevState: FormActionI, formData: FormData): Promise<FormActionI> => {
+  try {
+    const data = Object.fromEntries(formData.entries());
+
+    const validator = ZCategorySchema.safeParse(data)
+    if (!validator.success) {
+      return {
+        error: convertZodError(validator.error),
+        inputData: data
+      }
+    }
+    await connectDb()
+    const category = await Category.findById(data.id)
+
+    category.name = data.name
+    category.slug = data.slug
+    await category.save()
+    revalidateTag('Categories')
+
+    return {
+      status: 200,
+      message: `Successfully updated category.`,
+    }
+
+  } catch (e: any) {
+    console.log('createCategory err > ', e)
+    if (e.code === 11000) {
+      const errKey = Object.keys(e.keyValue)[0]
+
+      return {
+        error: {
+          [errKey]: `'${Object.keys(e.keyValue)[0]}' is already exists.`
+        },
+      }
+    }
+    throw new Error('Error updating category.')
 
   }
 
