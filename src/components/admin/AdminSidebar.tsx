@@ -91,11 +91,18 @@ const AdminSidebar = ({className, open, handleOpen}: AdminSidebarProps) => {
                 </li>
               ))
             }
-            <li>
+            <li className='relative group'>
               <button className='flex gap-x-3 px-3 py-2 rounded hover:bg-blue-500 hover:text-white w-full'>
                 <LogOutIcon/>
                 <span className={`${open ? 'inline-block' : 'hidden'}`}>Sign Out</span>
               </button>
+
+              {!open && (
+                <div
+                  className='bg-white ring-2 ring-blue-500 absolute right-[-100px] top-[50%] transform translate-y-[-50%] text-sm px-3 py-1 text-center z-[30] rounded-full min-w-[100px] shadow-2xl hidden group-hover:block'>
+                  Logout
+                </div>
+              )}
             </li>
           </ul>
         </nav>
