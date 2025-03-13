@@ -2,10 +2,10 @@ import {z} from "zod";
 import mongoose from "mongoose";
 
 export const ZReviewSchema = z.object({
-  name: z.string(),
   rating: z.number(),
-  comment: z.string(),
-  user: z.instanceof(mongoose.Schema.Types.ObjectId),
+  comment: z.string().trim().min(1, 'Required'),
+  username: z.string().optional(),
+  email: z.string().email().optional(),
 })
 
 export const ZProductSchema = z.object({

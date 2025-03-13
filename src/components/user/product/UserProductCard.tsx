@@ -3,8 +3,11 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {getImageUrl} from "@/lib/utils";
+import Rating from "@/components/Rating";
 
 const UserProductCard = ({product}: { product: ProductSchemaI }) => {
+
+
   return (
     <div className={`rounded p-4 group border shadow w-full bg-white`}>
       <Link href={`/products/${product.slug}`} className='block'>
@@ -14,7 +17,7 @@ const UserProductCard = ({product}: { product: ProductSchemaI }) => {
                height={300}
                alt={`${product.name}-image`}/>
       </Link>
-
+      
       <div className='mt-2 overflow-hidden'>
         <Link href={`/products/${product.slug}`}>
           <h4 className='font-semibold truncate'>{product.name}</h4>
@@ -22,6 +25,8 @@ const UserProductCard = ({product}: { product: ProductSchemaI }) => {
         <p>$ {product.price.toFixed(2)}</p>
 
         {/*  Product Rating  */}
+        <Rating value={product.rating}/>
+
       </div>
       <button className='w-full bg-black text-center mt-4 py-2 text-white rounded'>Add to cart
       </button>

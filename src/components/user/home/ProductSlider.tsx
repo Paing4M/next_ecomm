@@ -4,13 +4,9 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {ProductSchemaI} from "@/lib/db/models/productModel";
-import Image from "next/image";
-import {getImageUrl} from "@/lib/utils";
 import React from "react";
 import {ArrowLeft, ArrowRight} from "lucide-react";
-import Link from "next/link";
 import Title from "@/components/user/Title";
-import ProductCard from "@/components/card/ProductCard";
 import UserProductCard from "@/components/user/product/UserProductCard";
 
 

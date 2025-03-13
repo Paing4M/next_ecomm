@@ -16,8 +16,15 @@ interface ProductFormProps {
   editProduct: ProductSchemaI | null
 }
 
-
 const initialState: FormActionI = {}
+
+const suggestionArr = [
+  'popular',
+  'android',
+  'apple',
+  '5g',
+  'gaming',
+]
 
 const ProductForm = ({closeModal, categories, editProduct}: ProductFormProps) => {
 
@@ -105,6 +112,13 @@ const ProductForm = ({closeModal, categories, editProduct}: ProductFormProps) =>
   }
 
 
+  const suggestions: Tag[] = suggestionArr.map((item: string) => ({
+    id: item,
+    text: item,
+    className: ''
+  }))
+
+
   return (
     <form ref={formRef} action={formAction} className='space-y-3 text-gray-600'>
       <div className='flex items-start justify-between gap-2'>
@@ -187,8 +201,9 @@ const ProductForm = ({closeModal, categories, editProduct}: ProductFormProps) =>
       {/* tags */
       }
       <div>
-        <label htmlFor="tags" className='inline-block capitalize'>Tags</label>
+        <label htmlFor="tags" className='inline-block capitalize'>Tags (e.g: "popular")</label>
         <ReactTags
+          suggestions={suggestions}
           id='tags'
           maxTags={4}
           tags={tags}

@@ -115,13 +115,13 @@ const Header = () => {
           </div>
 
           {/* cart */}
-          <div className='relative'>
-            <Link href={'/cart'}>
+          <div>
+            <Link href={'/cart'} className='relative'>
               <ShoppingCartIcon className='cursor-pointer'/>
+              <span
+                className='absolute rounded-full w-full h-full flex items-center justify-center text-sm bg-gray-800 text-white font-bold top-[-15px] right-[-13px]'>10</span>
             </Link>
 
-            <span
-              className='absolute rounded-full w-full h-full flex items-center justify-center text-sm bg-gray-800 text-white font-bold top-[-15px] right-[-13px]'>10</span>
           </div>
 
 

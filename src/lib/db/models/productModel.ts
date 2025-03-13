@@ -1,10 +1,12 @@
 import mongoose, {Schema, Types} from 'mongoose';
 import {ZProductSchemaI} from "@/lib/types";
+import {reviewSchema} from "@/lib/db/models/reviewModel";
 
 
 export interface ProductSchemaI extends mongoose.Document, ZProductSchemaI {
   _id: string
   tags: string[]
+  rating: number
   isPublished: boolean
   createdAt: Date
   updatedAt: Date
@@ -54,12 +56,11 @@ const productSchema = new mongoose.Schema<ProductSchemaI>({
     type: Boolean,
     required: true,
   },
-  reviews: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Review'
-    },
-  ],
+  rating: {
+    type: Number,
+    default: 0,
+  },
+  reviews: [reviewSchema],
 }, {timestamps: true});
 
 const Product = mongoose.models?.Product || mongoose.model<ProductSchemaI>('Product', productSchema);

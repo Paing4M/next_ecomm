@@ -56,6 +56,19 @@ body {
 }
 
 
+.ReactTags__suggestions {
+  @apply absolute bg-white border z-[5] w-[calc(100%-20px)] shadow
+}
+
+.ReactTags__suggestions li {
+  @apply p-2 cursor-pointer
+}
+
 .table_p {
   @apply px-6 py-3
+}
+
+
+.auto_text {
+  field-sizing: content
 }

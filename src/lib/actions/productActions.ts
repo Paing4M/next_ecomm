@@ -3,12 +3,14 @@
 import connectDb from "@/lib/db/db";
 import Product, {ProductSchemaI} from "@/lib/db/models/productModel";
 import Category from "@/lib/db/models/categoryModel";
-import {ZProductSchema} from "@/lib/validator";
+import {ZProductSchema, ZReviewSchema} from "@/lib/validator";
 import {convertZodError} from "@/lib/utils";
 import {revalidateTag, unstable_cache as cache} from "next/cache";
 import path from "node:path";
 import fs from "node:fs";
 import {NextResponse} from "next/server";
+import Review, {ReviewInterface} from "@/lib/db/models/reviewModel";
+import {auth} from "@clerk/nextjs/server";
 
 export const getPopularProducts = async (limit: number = 5) => {
   await connectDb()
@@ -71,7 +73,6 @@ export const getRelatedProductByCategory = async (slug: string, limit: number = 
     const products = await Product.find({
       isPublished: true,
       category: product.category,
-      tags: {$in: product.tags},
       _id: {$ne: product._id}
     }).limit(limit)
 
@@ -186,7 +187,6 @@ export const createProduct = async (prevState: FormActionI, formData: FormData):
         error: {
           [errKey]: `'${Object.keys(e.keyValue)[0]}' is already exists.`
         },
-
       }
     }
 
@@ -279,4 +279,77 @@ const deleteImage = async (name: string) => {
       }, {status: 400})
     }
   })
+}
+
+
+export const addProductReview = async (prevState: FormActionI, formData: FormData): Promise<FormActionI> => {
+  try {
+    // const user = await auth()
+    const comment = formData.get('comment') as string
+    const rating = formData.get('rating') as number | null
+    const productId = formData.get('productId') as string
+    const username = "a"
+    const userEmail = "a@gmail.com"
+
+    const validator = ZReviewSchema.safeParse({comment, rating: Number(rating)})
+
+    if (!validator.success) {
+      return {
+        error: convertZodError(validator.error),
+      }
+    }
+
+    if (!productId) {
+      return {
+        error: {
+          product: 'Product not found',
+        }
+      }
+    }
+
+    await connectDb()
+    const product = await Product.findById(productId) as ProductSchemaI
+    console.log(1, product)
+
+    if (!product) {
+      return {
+        error: {
+          product: "Product not found",
+        }
+      }
+    }
+
+
+    const alreadyReviewed = product.reviews?.find(r => r.email === userEmail)
+
+    if (alreadyReviewed) {
+      return {
+        error: {
+          'product': 'Product is already reviewed.',
+        }
+      }
+    }
+
+    const review = {
+      username,
+      rating: Number(rating),
+      comment: comment,
+      email: "a@gmail.com"
+    }
+
+    product?.reviews?.push(review)
+    product.rating = product?.reviews?.reduce((acc, item) => item.rating + acc, 0) as number
+    await product.save()
+
+    return {
+      message: `Successfully reviewed product.`,
+      status: 200,
+    }
+
+  } catch (e: any) {
+    console.error(e)
+    throw new Error('Error in addProductReview.')
+  }
+
+
 }
