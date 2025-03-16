@@ -7,11 +7,13 @@ import React, {useEffect, useState} from "react";
 import {Minus, Plus} from "lucide-react";
 import ProductReviewContainer from "@/components/user/product/ProductReviewContainer";
 import Rating from "@/components/Rating";
+import useCartStore, {CartProductI} from "@/hooks/useCartStore";
 
 const ProductDetail = ({product}: { product: ProductSchemaI }) => {
   const [idx, setIdx] = useState(0);
   const [img, setImg] = useState('');
   const [quantity, setQuantity] = useState(1)
+  const {addToCart} = useCartStore()
 
   useEffect(() => {
     setImg(product.images[idx]);
@@ -61,7 +63,7 @@ const ProductDetail = ({product}: { product: ProductSchemaI }) => {
 
 
         {/* detail */}
-        <div className='flex-1 ml-0 md:ml-6 mt-6 md:mt-0'>
+        <div className='flex-1 ml-0 md:ml-6 mt-6 space-y-2 md:mt-0'>
           <h1 className='text-xl font-bold flex-[2]'>{product.name}</h1>
 
           <h1 className='text-2xl text-gray-600'>${product.price.toFixed(2)}</h1>
@@ -79,21 +81,21 @@ const ProductDetail = ({product}: { product: ProductSchemaI }) => {
 
             <div className='flex border rounded w-fit items-center overflow-hidden'>
               <button onClick={decrement} disabled={quantity === 1}
-                      className={`text-lg rounded-r hover:bg-redBackground hover:text-white p-2 ${quantity === 1 ? 'text-gray-400' : ''}`}>
+                      className={`text-lg rounded-r  p-2 ${quantity === 1 ? 'text-gray-400' : 'hover:bg-redBackground hover:text-white'}`}>
                 <Minus/>
               </button>
 
               <div className='min-w-[50px] text-center mx-2 text-lg'>{quantity}</div>
 
               <button disabled={quantity === product.countInStock} onClick={increment}
-                      className={`text-lg rounded-l hover:bg-redBackground hover:text-white p-2 ${quantity === product.countInStock ? 'text-gray-400' : ''}`}>
+                      className={`text-lg rounded-l  p-2 ${quantity === product.countInStock ? 'text-gray-400' : 'hover:bg-redBackground hover:text-white'}`}>
                 <Plus/>
               </button>
             </div>
 
-            <div className='bg-black px-3 py-2 cursor-pointer text-white rounded min-w-[150px] text-center'>Add
-              to
-              cart
+            <div onClick={() => addToCart(product as CartProductI, quantity)}
+                 className='bg-black px-3 py-2 cursor-pointer text-white rounded min-w-[150px] text-center'>
+              Add to cart
             </div>
 
           </div>

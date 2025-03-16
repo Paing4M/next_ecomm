@@ -2,7 +2,6 @@ import mongoose, {Schema, Types} from 'mongoose';
 import {ZProductSchemaI} from "@/lib/types";
 import {reviewSchema} from "@/lib/db/models/reviewModel";
 
-
 export interface ProductSchemaI extends mongoose.Document, ZProductSchemaI {
   _id: string
   tags: string[]

@@ -9,8 +9,7 @@ import {revalidateTag, unstable_cache as cache} from "next/cache";
 import path from "node:path";
 import fs from "node:fs";
 import {NextResponse} from "next/server";
-import Review, {ReviewInterface} from "@/lib/db/models/reviewModel";
-import {auth} from "@clerk/nextjs/server";
+import Sale from "@/lib/db/models/saleModel";
 
 export const getPopularProducts = async (limit: number = 5) => {
   await connectDb()
@@ -351,5 +350,23 @@ export const addProductReview = async (prevState: FormActionI, formData: FormDat
     throw new Error('Error in addProductReview.')
   }
 
+}
+
+export const applyCoupon = async (coupon: string) => {
+  await connectDb()
+  const sale = await Sale.findOne({
+    coupon,
+    isValid: true
+  })
+
+
+  if (!sale) {
+    throw new Error('Coupon not found.')
+  }
+
+  return {
+    status: 200,
+    data: JSON.parse(JSON.stringify(sale))
+  }
 
 }

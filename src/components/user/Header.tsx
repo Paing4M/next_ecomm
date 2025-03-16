@@ -4,9 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import {MenuIcon, SearchIcon, ShoppingCartIcon, UserIcon} from "lucide-react";
 import {useClerk, UserButton, useUser} from "@clerk/nextjs";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {CloseIcon} from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import useCartStore from "@/hooks/useCartStore";
+import useIsMounted from "@/hooks/useIsMounted";
 
 
 interface UserInfoUIProps {
@@ -16,6 +18,7 @@ interface UserInfoUIProps {
 
 const UserInfoUI = ({handleSignInModal, className}: UserInfoUIProps) => {
   const {user} = useUser()
+
 
   return (
     <div>
@@ -44,8 +47,13 @@ const Header = () => {
   const pathname = usePathname()
   const router = useRouter()
   const searchParams = useSearchParams()
+
   const {user} = useUser()
   const {openSignIn, openUserProfile} = useClerk()
+
+  const {getQuantity} = useCartStore()
+
+  const isMounted = useIsMounted()
 
   const handleSignInModal = () => {
     openSignIn()
@@ -66,7 +74,8 @@ const Header = () => {
   }
 
   return (
-    <header className='h-[70px] flex items-center border-b border-gray-200'>
+    <header
+      className='bg-white h-[70px] flex items-center border-b border-gray-200 max-w-[1300px] mx-auto px-2 md:px-3'>
       <div className='flex items-center justify-between w-full h-full relative'>
         {/*  logo */}
         <Link href={'/'}>
@@ -118,8 +127,12 @@ const Header = () => {
           <div>
             <Link href={'/cart'} className='relative'>
               <ShoppingCartIcon className='cursor-pointer'/>
-              <span
-                className='absolute rounded-full w-full h-full flex items-center justify-center text-sm bg-gray-800 text-white font-bold top-[-15px] right-[-13px]'>10</span>
+              {
+                isMounted && getQuantity() > 0 && (
+                  <span
+                    className={`absolute rounded-full w-full h-full flex items-center justify-center bg-gray-800 text-white font-bold top-[-15px] right-[-13px] ${getQuantity() > 10 ? 'text-sm' : 'text-md'}`}>{getQuantity()}</span>
+                )
+              }
             </Link>
 
           </div>
@@ -155,7 +168,6 @@ const Header = () => {
                 </div>
               </li>
             )}
-
 
             <li>
               <div onClick={() => openUserProfile()}
