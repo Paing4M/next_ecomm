@@ -10,6 +10,7 @@ import path from "node:path";
 import fs from "node:fs";
 import {NextResponse} from "next/server";
 import Sale from "@/lib/db/models/saleModel";
+import {currentUser} from "@clerk/nextjs/server";
 
 export const getPopularProducts = async (limit: number = 5) => {
   await connectDb()
@@ -34,6 +35,7 @@ const _getLimitProducts = async (limit: number = 8) => {
 
   return JSON.parse(JSON.stringify(products)) as ProductSchemaI[]
 }
+
 export const getLimitProducts = cache(_getLimitProducts, ['getLimitProducts'], {
   tags: ['Products']
 })
@@ -283,12 +285,21 @@ const deleteImage = async (name: string) => {
 
 export const addProductReview = async (prevState: FormActionI, formData: FormData): Promise<FormActionI> => {
   try {
-    // const user = await auth()
+    const user = await currentUser()
+
+    if (!user) {
+      return {
+        error: {
+          auth: 'Please login to review product.',
+        }
+      }
+    }
+
     const comment = formData.get('comment') as string
     const rating = formData.get('rating') as number | null
     const productId = formData.get('productId') as string
-    const username = "a"
-    const userEmail = "a@gmail.com"
+    const username = user.fullName as string
+    const userEmail = user.emailAddresses[0].emailAddress as string
 
     const validator = ZReviewSchema.safeParse({comment, rating: Number(rating)})
 
@@ -333,7 +344,7 @@ export const addProductReview = async (prevState: FormActionI, formData: FormDat
       username,
       rating: Number(rating),
       comment: comment,
-      email: "a@gmail.com"
+      email: userEmail
     }
 
     product?.reviews?.push(review)

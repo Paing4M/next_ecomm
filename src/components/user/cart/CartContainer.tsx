@@ -128,7 +128,7 @@ const CartContainer = () => {
 
             <tr className='border'>
               <td colSpan={5} className='py-2 px-3 text-right'>
-                SubTotal: <span className='font-semibold'>$ {calcSubtotal()}</span>
+                SubTotal: <span className='font-semibold'>$ {calcSubtotal().toFixed(2)}</span>
               </td>
             </tr>
           )}

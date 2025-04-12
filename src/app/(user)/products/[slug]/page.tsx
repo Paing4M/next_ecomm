@@ -25,7 +25,6 @@ const ProductDetailPage = async ({params}: ProductDetailPageProps) => {
       <ProductDetail product={product}/>
 
       <RelatedProducts products={relatedProducts}/>
-
     </div>
   )
 }

@@ -15,7 +15,7 @@ const ProductReviewContainer = ({productId}: ProductReviewContainerProps) => {
   const [activeTag, setActiveTag] = useState(1);
 
   const [state, formAction] = useActionState(addProductReview, initialState)
-  
+
   useEffect(() => {
     if (state?.status == 200) {
       toast.success(state?.message)
@@ -23,6 +23,10 @@ const ProductReviewContainer = ({productId}: ProductReviewContainerProps) => {
 
     if (state?.error?.product) {
       toast.error(state.error?.product)
+    }
+
+    if (state?.error?.auth) {
+      toast.error(state.error?.auth)
     }
   }, [state]);
 

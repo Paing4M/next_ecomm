@@ -49,6 +49,8 @@ const Header = () => {
   const searchParams = useSearchParams()
 
   const {user} = useUser()
+  const role = user?.publicMetadata?.role as string
+
   const {openSignIn, openUserProfile} = useClerk()
 
   const {getQuantity} = useCartStore()
@@ -72,6 +74,7 @@ const Header = () => {
     router.push('/products?' + params.toString(), {scroll: false})
 
   }
+
 
   return (
     <header
@@ -99,10 +102,19 @@ const Header = () => {
               <Link href={'/products'}
                     className={`block px-2 font-semibold ${pathname.includes('products') ? 'underline decoration-redBackground decoration-2 ' : ''}`}>Shop</Link>
             </li>
+
             <li>
               <Link href={'/about'}
                     className={`block px-2 font-semibold ${pathname.includes('about') ? 'underline decoration-redBackground decoration-2 ' : ''}`}>About</Link>
             </li>
+
+            {role && role === 'admin' && (
+              <li>
+                <Link href={'/admin'}
+                      className={`block px-2 font-semibold`}>Admin Dashboard</Link>
+              </li>
+
+            )}
 
           </ul>
 
