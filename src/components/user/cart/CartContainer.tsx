@@ -9,14 +9,33 @@ import useIsMounted from "@/hooks/useIsMounted";
 import {toast} from "react-toastify";
 import {FREE_SHIPPING_PRICE, MIN_SHIPPING_PRICE} from "@/lib/constant";
 import {applyCoupon} from "@/lib/actions/productActions";
+import {loadStripe} from "@stripe/stripe-js";
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY || '')
 
 const CartContainer = () => {
   const [coupon, setCoupon] = useState<string>('')
   const [discount, setDiscount] = useState<number | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
 
-  const {cart, updateItem, getTotalPrice, removeItem} = useCartStore()
+  const {cart, updateItem, removeItem} = useCartStore()
+
+  // console.log('total', cart.total)
+
+  const getTotalPrice = (discount: number = 0): number => {
+    const products = cart.products || []
+
+    const subtotal = products.reduce((acc, item) => acc + (item.quantity * item.price), 0)
+
+    const discountAmount = (discount / 100) * subtotal
+    const discountedSubtotal = subtotal - discountAmount
+
+    const shipping = subtotal > FREE_SHIPPING_PRICE ? 0 : MIN_SHIPPING_PRICE
+
+    return discountedSubtotal + shipping
+  }
+
 
   const isMounted = useIsMounted();
 
@@ -38,8 +57,38 @@ const CartContainer = () => {
   }
 
 
-  const handleClick = () => {
+  const handleCheckout = async () => {
+    setIsLoading(true)
+    const stripe = await stripePromise
 
+    try {
+      const res = await fetch(`/api/checkout`, {
+        method: "POST",
+        body: JSON.stringify({
+          products: cart.products,
+          couponCode: coupon || null,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        }
+      })
+      const data = await res.json()
+      if (data.sessionId) {
+        const res = await stripe?.redirectToCheckout({
+          sessionId: data.sessionId,
+        })
+
+        if (res?.error) {
+          console.log('stripe err ', res.error)
+        }
+      }
+
+    } catch (e) {
+      console.log('Checkout err ', e)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleCoupon = async () => {
@@ -48,7 +97,6 @@ const CartContainer = () => {
       if (res.status === 200) {
         setDiscount(res.data?.discount)
         toast.success('Coupon applied.')
-        setCoupon('')
       }
 
     } catch (e: any) {
@@ -163,16 +211,17 @@ const CartContainer = () => {
               <hr className='my-2'/>
 
               {discount && (
-                <>
+                <div className='text-gray-700'>
+                  <p className='text-sm'>Coupon applied</p>
                   <div className='flex items-center justify-between'>
-                    <h4 className='text-gray-700 '>Discount:</h4>
-                    <p className='text-gray-700'>
+                    <h4>Discount:</h4>
+                    <p>
                       {discount} %
                     </p>
                   </div>
 
                   <hr className='my-2'/>
-                </>
+                </div>
               )}
 
               <div className='flex items-center justify-between'>
@@ -200,15 +249,17 @@ const CartContainer = () => {
 
               <div className='flex mt-4 justify-center'>
                 <button
-                  onClick={() => handleClick()}
-                  className='px-2 w-full max-w-[220px] py-2 rounded bg-redBackground text-white'>Proceed to
-                  checkout
+                  onClick={() => handleCheckout()}
+                  disabled={isLoading}
+                  className={`px-2 w-full max-w-[220px] py-2 rounded bg-redBackground text-white `}>
+                  {isLoading ? 'Processing...' : 'Proceed to checkout'}
                 </button>
               </div>
 
             </div>
 
           )}
+
 
         </div>
 

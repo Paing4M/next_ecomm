@@ -18,7 +18,6 @@ const withProductCard = (CardComponent: ComponentType<{
     if (products.length === 0) return <p className='text-redBackground text-center w-full p-2'>No product found.</p>
 
     return (
-
       <div
         className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ${className}`}>
         {products.map((product) => (

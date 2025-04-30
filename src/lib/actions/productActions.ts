@@ -52,7 +52,7 @@ export const getLatestProducts = async () => {
   return JSON.parse(JSON.stringify(products)) as ProductSchemaI[]
 }
 
-export const getProductBySlug = async (slug: string) => {
+const _getProductBySlug = async (slug: string) => {
   await connectDb()
 
   const product = await Product.findOne({
@@ -62,6 +62,10 @@ export const getProductBySlug = async (slug: string) => {
   return JSON.parse(JSON.stringify(product)) as ProductSchemaI
 
 }
+
+export const getProductBySlug = cache(_getProductBySlug, ['getProductBySlug'], {
+  tags: ['ProductBySlug']
+})
 
 
 export const getRelatedProductByCategory = async (slug: string, limit: number = 4) => {
@@ -319,7 +323,6 @@ export const addProductReview = async (prevState: FormActionI, formData: FormDat
 
     await connectDb()
     const product = await Product.findById(productId) as ProductSchemaI
-    console.log(1, product)
 
     if (!product) {
       return {
@@ -350,6 +353,7 @@ export const addProductReview = async (prevState: FormActionI, formData: FormDat
     product?.reviews?.push(review)
     product.rating = product?.reviews?.reduce((acc, item) => item.rating + acc, 0) as number
     await product.save()
+    revalidateTag('ProductBySlug')
 
     return {
       message: `Successfully reviewed product.`,
@@ -372,7 +376,7 @@ export const applyCoupon = async (coupon: string) => {
 
 
   if (!sale) {
-    throw new Error('Coupon not found.')
+    throw new Error('Invalid coupon.')
   }
 
   return {

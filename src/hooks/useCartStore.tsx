@@ -1,7 +1,6 @@
 import {create} from "zustand/react";
 import {persist} from "zustand/middleware";
 import {ProductSchemaI} from "@/lib/db/models/productModel";
-import {FREE_SHIPPING_PRICE, MIN_SHIPPING_PRICE} from "@/lib/constant";
 
 export interface CartProductI extends ProductSchemaI {
   quantity: number
@@ -28,8 +27,8 @@ type CartStore = {
   addToCart: (item: CartProductI, quantity: number) => void,
   updateItem: (item: CartProductI, quantity: number) => void,
   getQuantity: () => number,
-  getTotalPrice: (dis?: number) => number,
   removeItem: (id: string) => void,
+  clearCart: () => void,
 }
 
 
@@ -118,17 +117,13 @@ const useCartStore = create<CartStore>()(
         return qty || 0
       },
 
-      // get total price
-      getTotalPrice: (dis = 0) => {
-        const {products} = get().cart
-        const price = products?.reduce((acc, item) => (item.quantity * item.price) + acc, 0)
-
-        const totalPrice = price > FREE_SHIPPING_PRICE ? price : price + MIN_SHIPPING_PRICE
-
-        return totalPrice - (dis / 100) * totalPrice
-
+      //   clear cart
+      clearCart: () => {
+        set({
+          cart: initialState,
+        })
       }
-
+      
     }),
 
     {

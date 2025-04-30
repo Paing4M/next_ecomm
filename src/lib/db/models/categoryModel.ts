@@ -1,7 +1,7 @@
-import mongoose, {Model, Document} from "mongoose";
+import mongoose, {Document} from "mongoose";
 import {ZCategorySchemaI} from "@/lib/types";
 
-interface Category extends Document, ZCategorySchemaI {
+interface CategoryInterface extends Document, ZCategorySchemaI {
   createdAt: Date
   updatedAt: Date
 }
@@ -19,6 +19,6 @@ const categorySchema = new mongoose.Schema({
   },
 }, {timestamps: true});
 
-const Category = mongoose.models?.Category || mongoose.model<Category>('Category', categorySchema);
+const Category = mongoose.models?.Category || mongoose.model<CategoryInterface>('Category', categorySchema);
 
 export default Category;

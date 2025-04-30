@@ -9,7 +9,7 @@ const UserLayout = ({children}: {
     <>
       <div className='max-w-[1300px] mx-auto px-2 md:px-3'>
         <Header/>
-        <div className='min-h-screen'>
+        <div className='min-h-[calc(100vh-70px)]'>
           {children}
         </div>
       </div>
