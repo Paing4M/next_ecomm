@@ -1,7 +1,7 @@
 import type {Metadata} from "next";
 import React from "react";
-import AdminHeader from "@/components/admin/AdminHeader";
 import AdminLayout from "@/components/admin/AdminLayout";
+import Dashboard from "@/components/admin/dashboard/Dashboard";
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -10,10 +10,9 @@ export const metadata: Metadata = {
 
 const Page = () => {
   return (
-    <AdminLayout>
-      <AdminHeader title={'dashboard'}/>
+    <AdminLayout title={'dashboard'}>
       <div className='mt-[1rem] px-4'>
-        this is dashboard
+        <Dashboard/>
       </div>
     </AdminLayout>
   )

@@ -3,7 +3,7 @@
 import React, {useState} from "react";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import AdminHeader from "@/components/admin/AdminHeader";
-import {MenuIcon} from "lucide-react";
+
 
 const AdminLayout = ({children, title}: { children: React.ReactNode, title: string }) => {
   const [open, setOpen] = useState(false)
