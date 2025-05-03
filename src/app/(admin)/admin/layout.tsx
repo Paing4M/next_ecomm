@@ -1,5 +1,4 @@
 import React from "react";
-import AdminSidebar from "@/components/admin/AdminSidebar";
 import type {Metadata} from "next";
 
 
@@ -13,7 +12,7 @@ export const metadata: Metadata = {
 
 const AdminLayout = ({children}: { children: React.ReactNode }) => {
   return (
-    <main className='w-full min-h-screen bg-gray-100 overflow-hidden'>
+    <main className='w-full min-h-[calc(100vh-60px)] bg-gray-100'>
       {children}
     </main>
   )

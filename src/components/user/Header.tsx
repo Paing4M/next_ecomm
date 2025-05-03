@@ -3,42 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import {MenuIcon, SearchIcon, ShoppingCartIcon, UserIcon} from "lucide-react";
-import {useClerk, UserButton, useUser} from "@clerk/nextjs";
+import {useClerk, useUser} from "@clerk/nextjs";
 import React, {useState} from "react";
 import {CloseIcon} from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import useCartStore from "@/hooks/useCartStore";
 import useIsMounted from "@/hooks/useIsMounted";
-
-
-interface UserInfoUIProps {
-  handleSignInModal: () => void
-  className?: string
-}
-
-const UserInfoUI = ({handleSignInModal, className}: UserInfoUIProps) => {
-  const {user} = useUser()
-
-
-  return (
-    <div>
-      {!user ? (
-        <button onClick={handleSignInModal} className={`border-none outline-none text-md font-bold ${className}`}>
-          Sign in
-        </button>
-
-      ) : (
-        <UserButton>
-          <UserButton.MenuItems>
-            {/*<UserButton.Action label={''} labelIcon={} onClick={}/>*/}
-          </UserButton.MenuItems>
-
-        </UserButton>
-      )}
-
-    </div>
-  )
-}
+import UserInfoUI from "@/components/UserInfoUI";
 
 
 const Header = () => {

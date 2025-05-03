@@ -13,6 +13,7 @@ import {
   ShoppingCartIcon
 } from "lucide-react";
 import {usePathname} from "next/navigation";
+import {useClerk} from "@clerk/nextjs";
 
 const links = [
   {
@@ -46,6 +47,7 @@ interface AdminSidebarProps {
 const AdminSidebar = ({className, open, handleOpen}: AdminSidebarProps) => {
 
   const pathname = usePathname();
+  const {signOut} = useClerk()
 
 
   return (
@@ -53,11 +55,11 @@ const AdminSidebar = ({className, open, handleOpen}: AdminSidebarProps) => {
       className={`fixed top-0 px-2 bg-white h-screen ${className}`}>
       <div className='h-[60px] py-3'>
 
-        <div className='flex gap-x-2 items-center relative'>
+        <div className='flex gap-x-2 items-center justify-between'>
           <Image className={`${open ? 'inline-block' : 'hidden'}`} src='/images/logo.png' height='100' width='100'
                  alt='logo-ecomm'/>
           <div onClick={handleOpen}
-               className='font-bold px-3 py-2 cursor-pointer  rounded-full bg-blue-500 text-white w-fit absolute right-0 top-0'>
+               className='font-bold px-3 py-2 cursor-pointer  rounded-full bg-blue-500 text-white w-fit '>
 
             {open ? (
               <ChevronLeftIcon className='w-6 h-6 '/>
@@ -92,7 +94,8 @@ const AdminSidebar = ({className, open, handleOpen}: AdminSidebarProps) => {
               ))
             }
             <li className='relative group'>
-              <button className='flex gap-x-3 px-3 py-2 rounded hover:bg-blue-500 hover:text-white w-full'>
+              <button onClick={() => signOut({redirectUrl: '/'})}
+                      className='flex gap-x-3 px-3 py-2 rounded hover:bg-blue-500 hover:text-white w-full'>
                 <LogOutIcon/>
                 <span className={`${open ? 'inline-block' : 'hidden'}`}>Sign Out</span>
               </button>

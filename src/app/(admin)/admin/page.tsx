@@ -11,9 +11,7 @@ export const metadata: Metadata = {
 const Page = () => {
   return (
     <AdminLayout title={'dashboard'}>
-      <div className='mt-[1rem] px-4'>
-        <Dashboard/>
-      </div>
+      <Dashboard/>
     </AdminLayout>
   )
 }
