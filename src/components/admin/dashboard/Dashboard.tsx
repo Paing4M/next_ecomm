@@ -1,7 +1,7 @@
 import Card from "@/components/admin/dashboard/Card";
 import {BadgeDollarSignIcon, PackageIcon, Users} from "lucide-react";
-import {dashboardData} from "@/lib/actions/dashboardAction";
 import Chart from "@/components/admin/dashboard/Chart";
+import {dashboardData} from "@/lib/actions/dashboardAction";
 
 const Dashboard = async () => {
   const res = await dashboardData()

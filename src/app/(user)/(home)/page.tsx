@@ -3,7 +3,6 @@ import {SaleInterface} from "@/lib/db/models/saleModel";
 import SaleBanner from "@/components/user/home/SaleBanner";
 import ProductSlider from "@/components/user/home/ProductSlider";
 import {getLatestProducts, getLimitProducts, getPopularProducts} from "@/lib/actions/productActions";
-import Link from "next/link";
 import {getCategoriesInUse} from "@/lib/actions/categoryActions";
 import {ProductSchemaI} from "@/lib/db/models/productModel";
 import CategoryList from "@/components/user/home/CategoryList";

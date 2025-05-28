@@ -15,3 +15,10 @@ interface StringMap {
   [key: string]: string;
 }
 
+
+interface OrderI {
+  _id: string;
+  userEmail: string;
+  stripeSessionId: string;
+  totalAmount: number;
+}
