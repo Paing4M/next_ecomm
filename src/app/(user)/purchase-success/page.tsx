@@ -1,5 +1,4 @@
 import SuccessPurchase from "@/components/user/SuccessPurchase";
-import {Suspense} from "react";
 
 type SearchParams = Promise<{ session_id?: string | null }>;
 
@@ -13,9 +12,7 @@ const PurchaseSuccessPage = async ({
 
   return (
     <section className="flex items-center justify-center h-[calc(100vh-70px)]">
-      <Suspense fallback={<p>Loading...</p>}>
-        <SuccessPurchase sessionId={sessionId}/>
-      </Suspense>
+      <SuccessPurchase sessionId={sessionId}/>
     </section>
   );
 };
