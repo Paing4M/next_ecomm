@@ -4,9 +4,7 @@ import SuccessPurchase from "@/components/user/SuccessPurchase";
 import {Suspense} from "react";
 
 
-const PurchaseSuccessPage = async () => {
-
-
+const PurchaseSuccessPage = () => {
   return (
     <section className="flex items-center justify-center h-[calc(100vh-70px)]">
       <Suspense>
