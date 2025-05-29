@@ -3,17 +3,16 @@
 import {CheckCircle} from "lucide-react";
 import Link from "next/link";
 import SuccessConfetti from "@/components/SuccessConfetti";
-import {useRouter, useSearchParams} from "next/navigation";
+import {useRouter} from "next/navigation";
 import {useUser} from "@clerk/nextjs";
 import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import useCartStore from "@/hooks/useCartStore";
 
-const SuccessPurchase = () => {
+const SuccessPurchase = ({sessionId}: { sessionId: string | null }) => {
   const {clearCart} = useCartStore()
 
-  const searchParams = useSearchParams();
-  const sessionId = searchParams.get('session_id') || null;
+ 
   const {user} = useUser();
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const router = useRouter();
