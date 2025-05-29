@@ -1,16 +1,20 @@
 import SuccessPurchase from "@/components/user/SuccessPurchase";
 
+type SearchParams = Promise<{ session_id?: string | null }>;
 
-type SearchParams = { session_id: string | undefined | null }
-
-const PurchaseSuccessPage = async ({searchParams}: { searchParams: SearchParams }) => {
-  const res = await searchParams
+const PurchaseSuccessPage = async ({
+                                     searchParams,
+                                   }: {
+  searchParams: SearchParams;
+}) => {
+  const params = await searchParams;
+  const sessionId = params.session_id ?? null;
 
   return (
     <section className="flex items-center justify-center h-[calc(100vh-70px)]">
-      <SuccessPurchase sessionId={res?.session_id!}/>
+      <SuccessPurchase sessionId={sessionId}/>
     </section>
-  )
-}
+  );
+};
 
-export default PurchaseSuccessPage
+export default PurchaseSuccessPage;
