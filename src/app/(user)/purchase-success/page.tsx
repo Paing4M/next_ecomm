@@ -1,3 +1,5 @@
+'use client'
+
 import SuccessPurchase from "@/components/user/SuccessPurchase";
 import {Suspense} from "react";
 
