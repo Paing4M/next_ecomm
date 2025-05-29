@@ -3,7 +3,7 @@ import {createClerkClient} from "@clerk/backend";
 import Order from "@/lib/db/models/OrderModel";
 
 
-const clerkClient = createClerkClient({secretKey: process.env.CLERK_SECRET_KEY});
+const clerkClient = createClerkClient({secretKey: process.env.CLERK_SECRET_KEY!});
 
 export const dashboardData = async () => {
   try {
