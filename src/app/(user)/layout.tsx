@@ -1,4 +1,4 @@
-import React, {Suspense} from "react";
+import React from "react";
 import Header from "@/components/user/Header";
 import Footer from "@/components/user/Footer";
 
@@ -10,9 +10,7 @@ const UserLayout = ({children}: {
       <div className='max-w-[1300px] mx-auto px-2 md:px-3'>
         <Header/>
         <div className='min-h-[calc(100vh-70px)]'>
-          <Suspense>
-            {children}
-          </Suspense>
+          {children}
         </div>
       </div>
 
