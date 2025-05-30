@@ -88,7 +88,7 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
 
   console.log(typeof products)
 
-  if (products && products.length == 0) return null
+  if (products.length === 0) return null
 
   return (
     <>
@@ -111,6 +111,7 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
       </div>
 
       <ProductsLink/>
+      <hr/>
     </>
   )
 }

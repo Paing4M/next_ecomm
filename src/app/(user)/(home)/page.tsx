@@ -7,7 +7,6 @@ import {getCategoriesInUse} from "@/lib/actions/categoryActions";
 import {ProductSchemaI} from "@/lib/db/models/productModel";
 import CategoryList from "@/components/user/home/CategoryList";
 import OurProducts from "@/components/user/home/OurProducts";
-import ProductsLink from "@/components/user/product/ProductsLink";
 import LatestProduct from "@/components/user/home/LatestProduct";
 import type {Metadata} from "next";
 
@@ -15,6 +14,7 @@ import type {Metadata} from "next";
 export const metadata: Metadata = {
   title: 'Home',
 };
+
 
 export default async function Home() {
   const sale: SaleInterface | null = await getLatestSale()
@@ -29,14 +29,8 @@ export default async function Home() {
       <SaleBanner sale={sale!}/>
 
       {/* popular */}
-      <div>
-        <ProductSlider title={'popular'} productTitle={'Popular Products'} products={popularProducts}/>
-      </div>
+      <ProductSlider title={'popular'} productTitle={'Popular Products'} products={popularProducts}/>
 
-
-      <ProductsLink/>
-
-      <hr/>
 
       {/* categories */}
       <div className='mt-10'>
@@ -49,9 +43,6 @@ export default async function Home() {
         <OurProducts products={limitProducts}/>
       </div>
 
-      <ProductsLink/>
-
-      <hr/>
 
       {/* latest */}
       <div className='mt-10'>
