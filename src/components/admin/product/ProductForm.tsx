@@ -205,7 +205,7 @@ const ProductForm = ({closeModal, categories, editProduct}: ProductFormProps) =>
         <ReactTags
           suggestions={suggestions}
           id='tags'
-          maxTags={4}
+          maxTags={5}
           tags={tags}
           separators={[SEPARATORS.COMMA, SEPARATORS.ENTER]}
           handleDelete={handleDelete}
