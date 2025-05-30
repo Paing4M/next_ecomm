@@ -85,8 +85,7 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
       }
     ]
   };
-
-  console.log(typeof products)
+  
 
   if (products.length === 0) return null
 
