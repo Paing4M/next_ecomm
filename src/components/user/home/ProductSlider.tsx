@@ -85,6 +85,9 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
     ]
   };
 
+  console.log(products)
+
+
   if (!products && products.length == 0) return
 
   return (
