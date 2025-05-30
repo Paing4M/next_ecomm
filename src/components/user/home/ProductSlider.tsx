@@ -85,7 +85,7 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
     ]
   };
 
-  if (products.length == 0) return
+  if (!products && products.length == 0) return
 
   return (
     <div className='w-full h-auto mt-10'>
