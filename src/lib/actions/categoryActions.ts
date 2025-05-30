@@ -131,6 +131,7 @@ export const deleteCategory = async (id: string) => {
     }
 
     await Category.findByIdAndDelete(id)
+    revalidateTag('Categories')
 
     return {
       success: true,
