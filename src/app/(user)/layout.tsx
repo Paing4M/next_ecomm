@@ -6,20 +6,18 @@ const UserLayout = ({children}: {
   children: React.ReactNode;
 }) => {
   return (
-    <>
+    <Suspense>
       <div className='max-w-[1300px] mx-auto px-2 md:px-3'>
         <Header/>
         <div className='min-h-[calc(100vh-70px)]'>
-          <Suspense>
-            {children}
-          </Suspense>
+          {children}
         </div>
       </div>
 
       <div className='bg-black text-white'>
         <Footer/>
       </div>
-    </>
+    </Suspense>
   )
 }
 
