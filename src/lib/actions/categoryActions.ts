@@ -121,3 +121,22 @@ export const updateCategory = async (prevState: FormActionI, formData: FormData)
   }
 
 }
+
+export const deleteCategory = async (id: string) => {
+  try {
+    await connectDb()
+    const category = await Category.findById(id)
+    if (!category) {
+      throw new Error('Category not found.')
+    }
+
+    await Category.findByIdAndDelete(id)
+
+    return {
+      success: true,
+      message: `Category deleted successfully.`,
+    }
+  } catch (e: any) {
+
+  }
+}
