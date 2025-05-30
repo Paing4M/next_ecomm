@@ -8,6 +8,7 @@ import React from "react";
 import {ArrowLeft, ArrowRight} from "lucide-react";
 import Title from "@/components/user/Title";
 import UserProductCard from "@/components/user/product/UserProductCard";
+import ProductsLink from "@/components/user/product/ProductsLink";
 
 
 export interface SliderArrowProps {
@@ -85,29 +86,32 @@ const ProductSlider = ({products, productTitle, title}: ProductSliderProps) => {
     ]
   };
 
-  console.log(products)
+  console.log(typeof products)
 
-
-  if (!products && products.length == 0) return
+  if (products && products.length == 0) return null
 
   return (
-    <div className='w-full h-auto mt-10'>
-      <Title title={title}/>
+    <>
+      <div className='w-full h-auto mt-10'>
+        <Title title={title}/>
 
-      <div>
+        <div>
 
-        <h1 className='text-xl font-bold'>{productTitle}</h1>
+          <h1 className='text-xl font-bold'>{productTitle}</h1>
 
-        <Slider className='mt-5 flex gap-3' {...settings}>
-          {products?.map((product) => (
-            <div key={product._id} className='px-2'>
-              <UserProductCard product={product}/>
-            </div>
-          ))}
-        </Slider>
+          <Slider className='mt-5 flex gap-3' {...settings}>
+            {products?.map((product) => (
+              <div key={product._id} className='px-2'>
+                <UserProductCard product={product}/>
+              </div>
+            ))}
+          </Slider>
+        </div>
+
       </div>
 
-    </div>
+      <ProductsLink/>
+    </>
   )
 }
 
