@@ -32,7 +32,6 @@ const Container = ({categories, brands, products, tags}: ContainerProps) => {
 
   const handleFilter = (key: keyof FilterI, value: string) => {
     let copy = {...filter};
-    console.log(key, value)
     if (!copy[key]) {
       copy[key] = [value];
     } else {
@@ -50,8 +49,6 @@ const Container = ({categories, brands, products, tags}: ContainerProps) => {
   const handleResetFilter = () => {
     router.push('/products', {scroll: false});
   }
-
-  console.log(filter)
 
 
   useEffect(() => {
